@@ -1,0 +1,282 @@
+<?php
+
+/**
+ * This file is part of the AlesWita\Components\WebLoader
+ * Copyright (c) 2017 Ales Wita (aleswita+github@gmail.com)
+ */
+
+declare(strict_types=1);
+
+namespace AlesWita\Components\WebLoader;
+
+use AlesWita;
+use Nette;
+use Nette\Caching;
+use Nette\Utils;
+
+
+/**
+ * @author Ales Wita
+ * @license MIT
+ */
+class Factory
+{
+	/** tags contants */
+	const FILE_TAG_CSS = "css";
+	const FILE_TAG_JS = "js";
+	const FILE_TAG_OTHER = "other";
+
+	/** folder constants */
+	const DEFAULT_FOLDER_CSS = "css";
+	const DEFAULT_FOLDER_JS = "js";
+
+	/** cache constants */
+	const CACHE_DEFAULT_NAMESPACE = "Web.Loader";
+	const CACHE_TAG = "Web.Loader";
+
+	const DEFAULT_NAMESPACE = "default";
+
+	/** @var string */
+	private $wwwDir;
+
+	/** @var bool */
+	private $debugMode;
+
+	/** @var string */
+	private $uniqueId;
+
+	/** @var Nette\Caching\Cache */
+	private $cache;
+
+	/** @var Nette\Caching\IStorage */
+	private $cacheStorage;
+
+	/** @vr string */
+	private $cacheNamespace = self::CACHE_DEFAULT_NAMESPACE;
+
+	/** @var Nette\Http\Request */
+	private $httpRequest;
+
+	/** @var string */
+	private $basePath;
+
+	/** @var array */
+	private $cssFiles = [];
+
+	/** @var array */
+	private $jsFiles = [];
+
+	/** @var array */
+	private $otherFiles = [];
+
+	/** ******************** */
+
+	/**
+	 * @param string
+	 * @return self
+	 */
+	public function setWwwDir(string $wwwDir): self {
+		$this->wwwDir = $wwwDir;
+		return $this;
+	}
+
+	/**
+	 * @param string
+	 * @return self
+	 */
+	public function setDebugMode(string $debugMode): self {
+		$this->debugMode = $debugMode;
+		return $this;
+	}
+
+	/**
+	 * @param string
+	 * @return self
+	 */
+	public function setUniqueId(string $uniqueId): self {
+		$this->uniqueId = $uniqueId;
+		return $this;
+	}
+
+	/**
+	 * @param Nette\Caching\IStorage
+	 * @return self
+	 */
+	public function setCacheStorage(Nette\Caching\IStorage $fileStorage): self {
+		$this->cacheStorage = $fileStorage;
+		return $this;
+	}
+
+	/**
+	 * @param string
+	 * @return self
+	 */
+	public function setCacheNamespace(string $namespace): self {
+		$this->cacheNamespace = $namespace;
+		return $this;
+	}
+
+	/**
+	 * @param Nette\Http\IRequest
+	 * @return self
+	 */
+	public function setHttpRequest(Nette\Http\IRequest $httpRequest): self {
+		$this->httpRequest = $httpRequest;
+		return $this;
+	}
+
+	/**
+	 * @param array
+	 * @return self
+	 */
+	public function addCssFile(array $fileSettings): self {
+		$this->cssFiles[] = $fileSettings;
+		return $this;
+	}
+
+	/**
+	 * @param array
+	 * @return self
+	 */
+	public function addJsFile(array $fileSettings): self {
+		$this->jsFiles[] = $fileSettings;
+		return $this;
+	}
+
+	/**
+	 * @param array
+	 * @return self
+	 */
+	public function addOtherFile(array $fileSettings): self {
+		$this->otherFiles[] = $fileSettings;
+		return $this;
+	}
+
+	/** ******************** */
+
+	/**
+	 * @param string
+	 * @return AlesWita\Components\WebLoader\Css
+	 */
+	public function getCssLoader(string $namespace = self::DEFAULT_NAMESPACE): AlesWita\Components\WebLoader\Loader\Css {
+		$cssLoader = new Loader\Css;
+
+		$cssLoader->setFiles($this->prepare($namespace))
+			->setNamespace($namespace)
+			->setCache($this->getCache());
+
+		return $cssLoader;
+	}
+
+	/**
+	 * @param string
+	 * @return AlesWita\Components\WebLoader\Js
+	 */
+	public function getJsLoader(string $namespace = self::DEFAULT_NAMESPACE): AlesWita\Components\WebLoader\Loader\Js {
+		$jsLoader = new Loader\Js;
+
+		$jsLoader->setFiles($this->prepare($namespace))
+			->setNamespace($namespace)
+			->setCache($this->getCache());
+
+		return $jsLoader;
+	}
+
+	/**
+	 * @return Nette\Caching\Cache
+	 */
+	private function getCache(): Nette\Caching\Cache {
+		if ($this->cache === NULL) {
+			$this->cache = new Caching\Cache($this->cacheStorage, $this->cacheNamespace);
+		}
+		return $this->cache;
+	}
+
+	/**
+	 * @return string
+	 */
+	private function getBasePath(): string {
+		return rtrim($this->httpRequest->getUrl()->getBaseUrl(), "/");// code snippet from Nette\Bridges\ApplicationLatte\TemplateFactory
+	}
+
+	/**
+	 * @param string
+	 * @return self
+	 */
+	private function prepare(string $namespace): array {
+		// invalidate cache, if some changes in container
+		if ($this->uniqueId !== $this->getCache()->load("uniqueId")) {
+			$this->getCache()->clean([Caching\Cache::TAGS => [self::CACHE_TAG]]);
+			$this->getCache()->save("uniqueId", function (& $dp) use ($namespace): string {
+				$dp = [Caching\Cache::TAGS => [self::CACHE_TAG]];
+				return $this->uniqueId;
+			});
+		}
+
+		// checking hash with original file if application in debug mode
+		if ($this->debugMode && $this->prepareFiles($namespace)) {
+			$this->getCache()->clean([Caching\Cache::TAGS => [self::CACHE_TAG]]);
+		}
+
+		return $this->getCache()->load("namespace-{$namespace}", function (& $dp) use ($namespace): array {
+			$dp = [Caching\Cache::TAGS => [self::CACHE_TAG]];
+			$output = [];
+			$basePath = $this->getBasePath();
+
+			foreach ($this->cssFiles as $file) {
+				if (in_array($namespace, $file["namespace"], TRUE)) {
+					$output[self::FILE_TAG_CSS][] = "{$basePath}/{$file["folder"]}/{$file["baseName"]}";
+				}
+			}
+
+			foreach ($this->jsFiles as $file) {
+				if (in_array($namespace, $file["namespace"], TRUE)) {
+					$output[self::FILE_TAG_JS][] = "{$basePath}/{$file["folder"]}/{$file["baseName"]}";
+				}
+			}
+
+			foreach ($this->otherFiles as $file) {
+				if (in_array($namespace, $file["namespace"], TRUE)) {
+					$output[self::FILE_TAG_OTHER][] = "{$basePath}/{$file["folder"]}/{$file["baseName"]}";
+				}
+			}
+
+			$this->prepareFiles($namespace);
+			return $output;
+		});
+	}
+
+	/**
+	 * @param string
+	 * @return bool
+	 */
+	private function prepareFiles(?string $namespace = NULL): bool {
+		$isAnyChanges = FALSE;
+
+		foreach ([$this->cssFiles, $this->jsFiles, $this->otherFiles] as $files) {
+			foreach ($files as $file) {
+				if ($namespace === NULL || in_array($namespace, $file["namespace"], TRUE)) {
+					if (!is_file($file["file"]) || (md5_file($file["file"]) !== $file["hash"] || ($this->debugMode && md5_file($file["file"]) !== md5_file($file["originalFile"])))) {
+						Utils\FileSystem::copy($file["originalFile"], $file["file"]);    bdump(true);
+                        $isAnyChanges = TRUE;
+					}
+				}
+			}
+		}
+		return $isAnyChanges;
+	}
+
+	///**
+	 //* @return self
+	 //*/
+	//private function prepareFolders(): self {
+		//foreach (array_unique(array_merge(array_column($this->cssFiles, "folder"), array_column($this->jsFiles, "folder"), array_column($this->otherFiles, "folder"))) as $folder) {
+			//$dir = "{$this->wwwDir}/{$folder}";
+
+			//if (!is_dir($dir)) {
+				//Utils\FileSystem::createDir($dir);
+			//}
+		//}
+		//return $this;
+	//}
+}
