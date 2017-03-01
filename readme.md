@@ -11,7 +11,7 @@ $ composer require aleswita/webloader:dev-master
 
 ## Usage
 
-#### Config:
+#### Config
 ```neon
 extensions:
 	webloader: AlesWita\Components\WebLoader\Extension
