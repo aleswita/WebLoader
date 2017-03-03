@@ -38,6 +38,7 @@ class Extension extends Nette\DI\CompilerExtension
 			->setClass("AlesWita\\Components\\WebLoader\\Factory")
 			->addSetup("\$service->setWwwDir(?)", [$container->parameters["wwwDir"]])
 			->addSetup("\$service->setDebugMode(?)", [$container->parameters["debugMode"]])
+			->addSetup("\$service->setProductionMode(?)", [$container->parameters["productionMode"]])
 			->addSetup("\$service->setUniqueId(?)", [uniqid()])
 			->addSetup("\$service->setCacheStorage(?)", [$container->getDefinitionByType("Nette\Caching\IStorage")])
 			->addSetup("\$service->setHttpRequest(?)", [$container->getDefinitionByType("Nette\Http\IRequest")]);
