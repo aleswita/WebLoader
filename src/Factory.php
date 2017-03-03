@@ -205,7 +205,7 @@ class Factory
 	 */
 	private function prepare(string $namespace): array {
 		// invalidate cache, if some changes in container
-		if ($this->uniqueId !== $this->getCache()->load("uniqueId")) {
+		if (!$this->debugMode && $this->uniqueId !== $this->getCache()->load("uniqueId")) {
 			$this->getCache()->clean([Caching\Cache::TAGS => [self::CACHE_TAG]]);
 			$this->getCache()->save("uniqueId", function (& $dp) use ($namespace): string {
 				$dp = [Caching\Cache::TAGS => [self::CACHE_TAG]];
