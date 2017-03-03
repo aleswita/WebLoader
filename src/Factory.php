@@ -42,6 +42,9 @@ class Factory
 	/** @var bool */
 	private $debugMode;
 
+	/** @var bool */
+	private $productionMode;
+
 	/** @var string */
 	private $uniqueId;
 
@@ -86,6 +89,15 @@ class Factory
 	 */
 	public function setDebugMode(string $debugMode): self {
 		$this->debugMode = $debugMode;
+		return $this;
+	}
+
+	/**
+	 * @param string
+	 * @return self
+	 */
+	public function setProductionMode(string $productionMode): self {
+		$this->productionMode = $productionMode;
 		return $this;
 	}
 
@@ -204,8 +216,8 @@ class Factory
 	 * @return self
 	 */
 	private function prepare(string $namespace): array {
-		// invalidate cache, if some changes in container
-		if (!$this->debugMode && $this->uniqueId !== $this->getCache()->load("uniqueId")) {
+		// invalidate cache, if some changes in container (only for debug mode, production no need)
+		if ($this->debugMode && $this->uniqueId !== $this->getCache()->load("uniqueId")) {
 			$this->getCache()->clean([Caching\Cache::TAGS => [self::CACHE_TAG]]);
 			$this->getCache()->save("uniqueId", function (& $dp) use ($namespace): string {
 				$dp = [Caching\Cache::TAGS => [self::CACHE_TAG]];
@@ -213,7 +225,7 @@ class Factory
 			});
 		}
 
-		// checking hash with original file if application in debug mode
+		// checking hash with original file (only for debug mode, production no need)
 		if ($this->debugMode && $this->prepareFiles($namespace)) {
 			$this->getCache()->clean([Caching\Cache::TAGS => [self::CACHE_TAG]]);
 		}
@@ -256,8 +268,8 @@ class Factory
 		foreach ([$this->cssFiles, $this->jsFiles, $this->otherFiles] as $files) {
 			foreach ($files as $file) {
 				if ($namespace === NULL || in_array($namespace, $file["namespace"], TRUE)) {
-					if (!is_file($file["file"]) || (md5_file($file["file"]) !== $file["hash"] || ($this->debugMode && md5_file($file["file"]) !== md5_file($file["originalFile"])))) {
-						Utils\FileSystem::copy($file["originalFile"], $file["file"]);    bdump(true);
+					if (!file_exists($file["file"]) || (md5_file($file["file"]) !== $file["hash"] || ($this->debugMode && md5_file($file["file"]) !== md5_file($file["originalFile"])))) {
+						Utils\FileSystem::copy($file["originalFile"], $file["file"]);
                         $isAnyChanges = TRUE;
 					}
 				}
@@ -265,18 +277,4 @@ class Factory
 		}
 		return $isAnyChanges;
 	}
-
-	///**
-	 //* @return self
-	 //*/
-	//private function prepareFolders(): self {
-		//foreach (array_unique(array_merge(array_column($this->cssFiles, "folder"), array_column($this->jsFiles, "folder"), array_column($this->otherFiles, "folder"))) as $folder) {
-			//$dir = "{$this->wwwDir}/{$folder}";
-
-			//if (!is_dir($dir)) {
-				//Utils\FileSystem::createDir($dir);
-			//}
-		//}
-		//return $this;
-	//}
 }
