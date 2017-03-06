@@ -30,6 +30,9 @@ abstract class Loader extends Application\UI\Control implements ILoader
 	/** @var Nette\Caching\Cache */
 	protected $cache;
 
+	/** @var string */
+	protected $expiration;
+
 	/** ******************** */
 
 	/**
@@ -49,10 +52,20 @@ abstract class Loader extends Application\UI\Control implements ILoader
 
 	/**
 	 * @param Nette\Caching\Cache
+	 * @param string
 	 * @return AlesWita\Components\WebLoader\Loader\ILoader
 	 */
 	public function setCache(Nette\Caching\Cache $cache): AlesWita\Components\WebLoader\Loader\ILoader {
 		$this->cache = $cache;
+		return $this;
+	}
+
+	/**
+	 * @param string
+	 * @return AlesWita\Components\WebLoader\Loader\ILoader
+	 */
+	public function setExpiration(string $expiration): AlesWita\Components\WebLoader\Loader\ILoader {
+		$this->expiration = $expiration;
 		return $this;
 	}
 
