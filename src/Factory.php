@@ -61,7 +61,7 @@ class Factory
 	private $httpRequest;
 
 	/** @var string */
-	private $basePath;
+	private $expiration;
 
 	/** @var array */
 	private $cssFiles = [];
@@ -138,6 +138,15 @@ class Factory
 	}
 
 	/**
+	 * @param string
+	 * @return self
+	 */
+	public function setExpiration(string $expiration): self {
+		$this->expiration = $expiration;
+		return $this;
+	}
+
+	/**
 	 * @param array
 	 * @return self
 	 */
@@ -175,7 +184,7 @@ class Factory
 
 		$cssLoader->setFiles($this->prepare($namespace))
 			->setNamespace($namespace)
-			->setCache($this->getCache());
+			->setCache($this->getCache(), $this->expiration);
 
 		return $cssLoader;
 	}
@@ -208,7 +217,11 @@ class Factory
 	 * @return string
 	 */
 	private function getBasePath(): string {
-		return rtrim($this->httpRequest->getUrl()->getBaseUrl(), "/");// code snippet from Nette\Bridges\ApplicationLatte\TemplateFactory
+	    // code snippet from Nette\Bridges\ApplicationLatte\TemplateFactory
+		$foo = rtrim($this->httpRequest->getUrl()->getBaseUrl(), "/");
+		$foo = preg_replace("#https?://[^/]+#A", "", $foo);
+
+		return $foo;
 	}
 
 	/**
