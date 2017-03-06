@@ -20,6 +20,7 @@ class Extension extends Nette\DI\CompilerExtension
 {
 	/** @var array */
 	public $defaults = [
+		"expiration" => NULL,
 		"cache" => [
 			"namespace" => NULL,
 		],
@@ -43,6 +44,9 @@ class Extension extends Nette\DI\CompilerExtension
 			->addSetup("\$service->setCacheStorage(?)", [$container->getDefinitionByType("Nette\Caching\IStorage")])
 			->addSetup("\$service->setHttpRequest(?)", [$container->getDefinitionByType("Nette\Http\IRequest")]);
 
+		if ($config["expiration"] !== NULL) {
+			$webLoader->addSetup("\$service->setExpiration(?)", [$config["expiration"]]);
+		}
 		if ($config["cache"]["namespace"] !== NULL) {
 			$webLoader->addSetup("\$service->setCacheNamespace(?)", [$config["cache"]["namespace"]]);
 		}
