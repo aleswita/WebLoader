@@ -11,7 +11,6 @@ namespace AlesWita\Components\WebLoader\Loader;
 
 use AlesWita;
 use AlesWita\Components\WebLoader\Factory;
-use Nette;
 use Nette\Caching;
 use Nette\Utils;
 
