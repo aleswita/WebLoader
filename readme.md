@@ -16,7 +16,8 @@ $ composer require aleswita/webloader:dev-master
 extensions:
 	webloader: AlesWita\Components\WebLoader\Extension
   
-webloader:
+webloader:	
+	expiration: 1 day # for regenerate links, sometimes helpful if some outdated browsers can not load new version of file
 	files:
 		-
 			originalFile: %appDir%/../node_modules/normalize.css/normalize.css
@@ -53,6 +54,7 @@ webloader:
 			namespace: [Front]
 			folder: fonts
 ```
+
 
 #### Presenter
 ```php
