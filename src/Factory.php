@@ -217,7 +217,7 @@ class Factory
 	 * @return string
 	 */
 	private function getBasePath(): string {
-	    // code snippet from Nette\Bridges\ApplicationLatte\TemplateFactory
+		// code snippet from Nette\Bridges\ApplicationLatte\TemplateFactory
 		$foo = rtrim($this->httpRequest->getUrl()->getBaseUrl(), "/");
 		$foo = preg_replace("#https?://[^/]+#A", "", $foo);
 
@@ -229,18 +229,20 @@ class Factory
 	 * @return self
 	 */
 	private function prepare(string $namespace): array {
-		// invalidate cache, if some changes in container (only for debug mode, production no need)
-		if ($this->debugMode && $this->uniqueId !== $this->getCache()->load("uniqueId")) {
-			$this->getCache()->clean([Caching\Cache::TAGS => [self::CACHE_TAG]]);
-			$this->getCache()->save("uniqueId", function (& $dp) use ($namespace): string {
-				$dp = [Caching\Cache::TAGS => [self::CACHE_TAG]];
-				return $this->uniqueId;
-			});
-		}
+		if ($this->debugMode) {
+			// invalidate cache, if some changes in container (only for debug mode, production no need)
+			if ($this->uniqueId !== $this->getCache()->load("uniqueId")) {
+				$this->getCache()->clean([Caching\Cache::TAGS => [self::CACHE_TAG]]);
+				$this->getCache()->save("uniqueId", function (& $dp) use ($namespace): string {
+					$dp = [Caching\Cache::TAGS => [self::CACHE_TAG]];
+					return $this->uniqueId;
+				});
+			}
 
-		// checking hash with original file (only for debug mode, production no need)
-		if ($this->debugMode && $this->prepareFiles($namespace)) {
-			$this->getCache()->clean([Caching\Cache::TAGS => [self::CACHE_TAG]]);
+			// checking hash with original file (only for debug mode, production no need)
+			if ($this->prepareFiles($namespace)) {
+				$this->getCache()->clean([Caching\Cache::TAGS => [self::CACHE_TAG]]);
+			}
 		}
 
 		return $this->getCache()->load("namespace-{$namespace}", function (& $dp) use ($namespace): array {
@@ -283,7 +285,7 @@ class Factory
 				if ($namespace === NULL || in_array($namespace, $file["namespace"], TRUE)) {
 					if (!file_exists($file["file"]) || (md5_file($file["file"]) !== $file["hash"] || ($this->debugMode && md5_file($file["file"]) !== md5_file($file["originalFile"])))) {
 						Utils\FileSystem::copy($file["originalFile"], $file["file"]);
-                        $isAnyChanges = TRUE;
+						$isAnyChanges = TRUE;
 					}
 				}
 			}
