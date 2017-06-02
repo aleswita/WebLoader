@@ -1,0 +1,16 @@
+webloader:
+	files:
+		-
+			originalFile: %appDir%/../files/css.css
+			tag: css
+
+#		-
+#			originalFile: %appDir%/../node_modules/jquery/dist/jquery.min.js
+#			tag: js
+#			namespace: [default, admin]
+	#folders:
+#		-
+#			originalFolder: %appDir%/../vendor/fortawesome/font-awesome/fonts
+#			tag: other
+#			namespace: [admin]
+#			folder: fonts

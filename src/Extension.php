@@ -51,38 +51,40 @@ class Extension extends Nette\DI\CompilerExtension
 			$webLoader->addSetup("\$service->setCacheNamespace(?)", [$config["cache"]["namespace"]]);
 		}
 
-		foreach ($config["folders"] as $folderSettings) {
-			if (!isset($folderSettings["originalFolder"])) {
-				throw new WebLoaderException("Missing parameter 'originalFolder' in folder configuration!");
-			}
-			if (!isset($folderSettings["tag"])) {
-				throw new WebLoaderException("Missing parameter 'tag' in folder configuration!");
-			}
-			if (!isset($folderSettings["namespace"])) {
-				$folderSettings["namespace"] = (array) Factory::DEFAULT_NAMESPACE;
-			}
-			if (!is_array($folderSettings["namespace"])) {
-				throw new WebLoaderException("Parameter 'namespace' must be array in folder configuration!");
-			}
-			if (!isset($folderSettings["masks"])) {
-				$folderSettings["masks"] = "*";
-			}
-			if (!isset($folderSettings["limithDepth"])) {
-				$folderSettings["limithDepth"] = 0;
-			}
+		if (is_array($config["folders"])) {
+			foreach ($config["folders"] as $folderSettings) {
+				if (!isset($folderSettings["originalFolder"])) {
+					throw new WebLoaderException("Missing parameter 'originalFolder' in folder configuration!");
+				}
+				if (!isset($folderSettings["tag"])) {
+					throw new WebLoaderException("Missing parameter 'tag' in folder configuration!");
+				}
+				if (!isset($folderSettings["namespace"])) {
+					$folderSettings["namespace"] = (array) Factory::DEFAULT_NAMESPACE;
+				}
+				if (!is_array($folderSettings["namespace"])) {
+					throw new WebLoaderException("Parameter 'namespace' must be array in folder configuration!");
+				}
+				if (!isset($folderSettings["masks"])) {
+					$folderSettings["masks"] = "*";
+				}
+				if (!isset($folderSettings["limithDepth"])) {
+					$folderSettings["limithDepth"] = 0;
+				}
 
-			$finder = Utils\Finder::findFiles($folderSettings["masks"])
-				->from($folderSettings["originalFolder"])
-				->limitDepth($folderSettings["limithDepth"]);
+				$finder = Utils\Finder::findFiles($folderSettings["masks"])
+					->from($folderSettings["originalFolder"])
+					->limitDepth($folderSettings["limithDepth"]);
 
-			foreach ($finder as $file) {
-				$config["files"][] = [
-					"originalFile" => $file->getLinkTarget(),
-					"tag" => $folderSettings["tag"],
-					"namespace" => $folderSettings["namespace"],
-					"baseName" => basename($file->getLinkTarget()),
-					"folder" => (isset($folderSettings["folder"]) ? $folderSettings["folder"] : NULL),
-				];
+				foreach ($finder as $file) {
+					$config["files"][] = [
+						"originalFile" => $file->getLinkTarget(),
+						"tag" => $folderSettings["tag"],
+						"namespace" => $folderSettings["namespace"],
+						"baseName" => basename($file->getLinkTarget()),
+						"folder" => (isset($folderSettings["folder"]) ? $folderSettings["folder"] : NULL),
+					];
+				}
 			}
 		}
 

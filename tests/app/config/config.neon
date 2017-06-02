@@ -1,0 +1,12 @@
+extensions:
+	webloader: AlesWita\Components\WebLoader\Extension
+
+application:
+	mapping:
+		*: AlesWita\Components\WebLoader\Tests\App\*Presenter
+
+services:
+	test.presenter:
+		class: AlesWita\Components\WebLoader\Tests\App\TestPresenter
+
+	routing.router: AlesWita\Components\WebLoader\Tests\App\Router::createRouter

@@ -206,7 +206,7 @@ class Factory
 	/**
 	 * @return Nette\Caching\Cache
 	 */
-	private function getCache(): Nette\Caching\Cache {
+	public function getCache(): Nette\Caching\Cache {
 		if ($this->cache === NULL) {
 			$this->cache = new Caching\Cache($this->cacheStorage, $this->cacheNamespace);
 		}
