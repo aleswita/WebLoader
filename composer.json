@@ -1,22 +1,28 @@
 {
-        "name": "aleswita/webloader",
-        "description": "WebLoader for Nette Framework.",
-        "keywords": ["nette","webloader"],
-        "license": ["MIT"],
-        "authors": [
-                {
-                        "name": "Aleš Wita",
-                        "email": "aleswita+github@gmail.com"
-                }
-        ],
-        "require": {
-                "php": "~7.1.0",
-                "nette/di": "~2.4.0 || ~3.0.0",
-                "nette/caching": "~2.5.0 || ~3.0.0",
-                "nette/http": "~2.4.0 || ~3.0.0",
-                "nette/utils": "~2.4.0 || ~3.0.0"
-        },
-        "autoload": {
-                "classmap": ["/"]
+	"name": "aleswita/webloader",
+	"description": "WebLoader for Nette Framework.",
+	"keywords": ["nette","webloader"],
+	"license": ["MIT"],
+	"authors": [
+		{
+			"name": "Aleš Wita",
+			"email": "aleswita+github@gmail.com"
+		}
+	],
+	"require": {
+		"php": "~7.1.0",
+		"nette/di": "~2.4.0 || ~3.0.0",
+		"nette/caching": "~2.5.0 || ~3.0.0",
+		"nette/http": "~2.4.0 || ~3.0.0",
+		"nette/utils": "~2.4.0 || ~3.0.0"
+	},
+	"require-dev": {
+		"nette/robot-loader": "~2.4.0 || ~3.0.0",
+		"nette/bootstrap": "~2.4.0 || ~3.0.0",
+		"tracy/tracy": "~2.4.0 || ~3.0.0",
+		"nette/tester": "~1.7.0"
+	},
+	"autoload": {
+		"classmap": ["src/"]
 	}
 }
