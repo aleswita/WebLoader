@@ -47,10 +47,10 @@ final class TestPresenter extends Nette\Application\UI\Presenter
 	}
 
 	/**
-	 * @param  Nette\Application\IResponse
+	 * @param Nette\Application\IResponse
 	 * @return void
 	 */
-	protected function shutdown($response): void {
+	protected function shutdown(Nette\Application\IResponse $response): void {
 		parent::shutdown($response);
 		$this->webLoader->getCache()->clean([Nette\Caching\Cache::TAGS => [AlesWita\Components\WebLoader\Factory::CACHE_TAG]]);
 	}
