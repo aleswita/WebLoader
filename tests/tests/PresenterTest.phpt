@@ -47,8 +47,6 @@ final class PresenterTest extends Tester\TestCase
 		Tester\Assert::same("stylesheet", (string) $data[0]["rel"]);
 		Tester\Assert::contains("http:/css/css.css?v=", (string) $data[0]["href"]);
 		Tester\Assert::same("text/css", (string) $data[0]["type"]);
-
-		$presenter->webLoader->getCache()->clean([Nette\Caching\Cache::TAGS => [AlesWita\Components\WebLoader\Factory::CACHE_TAG]]);
 	}
 
 	/**
@@ -75,8 +73,6 @@ final class PresenterTest extends Tester\TestCase
 		Tester\Assert::count(1, $data);
 		Tester\Assert::contains("http:/js/js.js?v=", (string) $data[0]["src"]);
 		Tester\Assert::same("text/javascript", (string) $data[0]["type"]);
-
-		$presenter->webLoader->getCache()->clean([Nette\Caching\Cache::TAGS => [AlesWita\Components\WebLoader\Factory::CACHE_TAG]]);
 	}
 
 	/**
