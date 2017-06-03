@@ -41,8 +41,8 @@ class Extension extends Nette\DI\CompilerExtension
 			->addSetup("\$service->setDebugMode(?)", [$container->parameters["debugMode"]])
 			->addSetup("\$service->setProductionMode(?)", [$container->parameters["productionMode"]])
 			->addSetup("\$service->setUniqueId(?)", [uniqid()])
-			->addSetup("\$service->setCacheStorage(?)", [$container->getDefinitionByType("Nette\Caching\IStorage")])
-			->addSetup("\$service->setHttpRequest(?)", [$container->getDefinitionByType("Nette\Http\IRequest")]);
+			->addSetup("\$service->setCacheStorage(?)", [$container->getDefinitionByType("Nette\\Caching\\IStorage")])
+			->addSetup("\$service->setHttpRequest(?)", [$container->getDefinitionByType("Nette\\Http\\IRequest")]);
 
 		if ($config["expiration"] !== NULL) {
 			$webLoader->addSetup("\$service->setExpiration(?)", [$config["expiration"]]);
