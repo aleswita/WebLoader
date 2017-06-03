@@ -45,4 +45,12 @@ final class TestPresenter extends Nette\Application\UI\Presenter
 	protected function createComponentJs(): AlesWita\Components\WebLoader\Loader\Js {
 		return $this->webLoader->getJsLoader();
 	}
+
+	/**
+	 * @return void
+	 */
+	protected function shutdown(): void {
+		parent::shutdown();
+		$this->webLoader->getCache()->clean([Nette\Caching\Cache::TAGS => [AlesWita\Components\WebLoader\Factory::CACHE_TAG]]);
+	}
 }
