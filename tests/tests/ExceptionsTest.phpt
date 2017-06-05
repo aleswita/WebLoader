@@ -141,7 +141,7 @@ final class ExceptionsTest extends Tester\TestCase
 	 * @throws AlesWita\Components\WebLoader\WebLoaderException Folder 'css' already have file with name 'css.css'!
 	 * @return void
 	 */
-	public function testTen(): void {
+	public function ttestTen(): void {
 		$configurator = new Nette\Configurator();
 		$configurator->setTempDirectory(TEMP_DIR);
 		$configurator->addConfig(__DIR__ . "/../app/config/config.neon");
