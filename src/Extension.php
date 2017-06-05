@@ -78,7 +78,8 @@ class Extension extends Nette\DI\CompilerExtension
 
 				foreach ($finder as $file) {
 					$config["files"][] = [
-						"originalFile" => $file->getLinkTarget(),
+						//"originalFile" => $file->getLinkTarget(),
+						"originalFile" => $file->getRealPath(),
 						"tag" => $folderSettings["tag"],
 						"namespace" => $folderSettings["namespace"],
 						"baseName" => basename($file->getLinkTarget()),

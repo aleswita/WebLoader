@@ -179,7 +179,7 @@ class Factory
 	 * @return string|NULL
 	 */
 	public function getExpiration(): ?string {
-	    return $this->expiration;
+		return $this->expiration;
 	}
 
 	/**
@@ -231,7 +231,7 @@ class Factory
 	 * @return Nette\Http\IRequest
 	 */
 	public function getHttpRequest(): Nette\Http\IRequest {
-    	return $this->httpRequest;
+		return $this->httpRequest;
 	}
 
 	/**
