@@ -38,7 +38,7 @@ final class GettersTest extends Tester\TestCase
 		$presenter = $presenterFactory->createPresenter("Getters");
 
 		Tester\Assert::same("1 WEEK", $presenter->webLoader->getExpiration());
-		Tester\Assert::contains(__DIR__, $presenter->webLoader->getWwwDir());
+		Tester\Assert::same(__DIR__, $presenter->webLoader->getWwwDir());
 		Tester\Assert::false($presenter->webLoader->getDebugMode());
 		Tester\Assert::true($presenter->webLoader->getProductionMode());
 		Tester\Assert::same(13, strlen($presenter->webLoader->getUniqueId()));
@@ -49,6 +49,8 @@ final class GettersTest extends Tester\TestCase
 
 		$cssFiles = $presenter->webLoader->getCssFiles();
 
+		Tester\Assert::count(1, $cssFiles);
+		Tester\Assert::count(7, $cssFiles[0]);
 		Tester\Assert::true(array_key_exists("originalFile", $cssFiles[0]));
 		Tester\Assert::same("css", $cssFiles[0]["tag"]);
 		Tester\Assert::same("default", $cssFiles[0]["namespace"][0]);
@@ -60,6 +62,8 @@ final class GettersTest extends Tester\TestCase
 
 		$jsFiles = $presenter->webLoader->getJsFiles();
 
+		Tester\Assert::count(1, $jsFiles);
+		Tester\Assert::count(7, $jsFiles[0]);
 		Tester\Assert::true(array_key_exists("originalFile", $jsFiles[0]));
 		Tester\Assert::same("js", $jsFiles[0]["tag"]);
 		Tester\Assert::same("default", $jsFiles[0]["namespace"][0]);
@@ -71,6 +75,8 @@ final class GettersTest extends Tester\TestCase
 
 		$otherFiles = $presenter->webLoader->getOtherFiles();
 
+		Tester\Assert::count(1, $otherFiles);
+		Tester\Assert::count(7, $otherFiles[0]);
 		Tester\Assert::true(array_key_exists("originalFile", $otherFiles[0]));
 		Tester\Assert::same("other", $otherFiles[0]["tag"]);
 		Tester\Assert::same("default", $otherFiles[0]["namespace"][0]);
