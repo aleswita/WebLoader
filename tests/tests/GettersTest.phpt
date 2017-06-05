@@ -82,11 +82,6 @@ final class GettersTest extends Tester\TestCase
 
 		Tester\Assert::true($presenter->webLoader->getCssLoader() instanceof AlesWita\Components\WebLoader\Loader\Css);
 		Tester\Assert::true($presenter->webLoader->getJsLoader() instanceof AlesWita\Components\WebLoader\Loader\Js);
-
-
-		var_dump($presenter->webLoader->getBasePath());
-
-		Tester\Assert::true("foooooooo");
 	}
 }
 
