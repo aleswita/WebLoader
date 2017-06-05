@@ -89,6 +89,24 @@ final class GettersTest extends Tester\TestCase
 		Tester\Assert::true($presenter->webLoader->getCssLoader() instanceof AlesWita\Components\WebLoader\Loader\Css);
 		Tester\Assert::true($presenter->webLoader->getJsLoader() instanceof AlesWita\Components\WebLoader\Loader\Js);
 	}
+	/**
+	 * @return void
+	 */
+	public function testTwo(): void {
+		$configurator = new Nette\Configurator();
+		$configurator->setDebugMode(TRUE);
+		$configurator->setTempDirectory(TEMP_DIR);
+		$configurator->addConfig(__DIR__ . "/../app/config/config.neon");
+		$configurator->addConfig(__DIR__ . "/../app/config/gettersTestOne.neon");
+
+		$container = $configurator->createContainer();
+		$presenterFactory = $container->getByType("Nette\\Application\\IPresenterFactory");
+
+		$presenter = $presenterFactory->createPresenter("Getters");
+
+		Tester\Assert::true($presenter->webLoader->getDebugMode());
+		Tester\Assert::false($presenter->webLoader->getProductionMode());
+	}
 }
 
 
