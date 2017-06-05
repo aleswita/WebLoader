@@ -97,13 +97,14 @@ final class GettersTest extends Tester\TestCase
 		$configurator->setDebugMode(TRUE);
 		$configurator->setTempDirectory(TEMP_DIR);
 		$configurator->addConfig(__DIR__ . "/../app/config/config.neon");
-		$configurator->addConfig(__DIR__ . "/../app/config/gettersTestOne.neon");
+		$configurator->addConfig(__DIR__ . "/../app/config/gettersTestTwo.neon");
 
 		$container = $configurator->createContainer();
 		$presenterFactory = $container->getByType("Nette\\Application\\IPresenterFactory");
 
 		$presenter = $presenterFactory->createPresenter("Getters");
 
+		Tester\Assert::same(NULL, $presenter->webLoader->getExpiration());
 		Tester\Assert::true($presenter->webLoader->getDebugMode());
 		Tester\Assert::false($presenter->webLoader->getProductionMode());
 	}
