@@ -82,7 +82,8 @@ class Extension extends Nette\DI\CompilerExtension
 						"originalFile" => $file->getRealPath(),
 						"tag" => $folderSettings["tag"],
 						"namespace" => $folderSettings["namespace"],
-						"baseName" => basename($file->getLinkTarget()),
+						//"baseName" => basename($file->getLinkTarget()),
+						"baseName" => basename($file->getRealPath()),
 						"folder" => (isset($folderSettings["folder"]) ? $folderSettings["folder"] : NULL),
 					];
 				}
