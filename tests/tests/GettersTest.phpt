@@ -89,6 +89,7 @@ final class GettersTest extends Tester\TestCase
 		Tester\Assert::true($presenter->webLoader->getCssLoader() instanceof AlesWita\Components\WebLoader\Loader\Css);
 		Tester\Assert::true($presenter->webLoader->getJsLoader() instanceof AlesWita\Components\WebLoader\Loader\Js);
 	}
+
 	/**
 	 * @return void
 	 */
@@ -107,6 +108,22 @@ final class GettersTest extends Tester\TestCase
 		Tester\Assert::same(NULL, $presenter->webLoader->getExpiration());
 		Tester\Assert::true($presenter->webLoader->getDebugMode());
 		Tester\Assert::false($presenter->webLoader->getProductionMode());
+		Tester\Assert::same(AlesWita\Components\WebLoader::CACHE_DEFAULT_NAMESPACE, $presenter->webLoader->getCacheNamespace());
+
+
+		$cssFiles = $presenter->webLoader->getCssFiles();
+
+		//Tester\Assert::count(0, $cssFiles);
+
+
+		$jsFiles = $presenter->webLoader->getJsFiles();
+
+		Tester\Assert::count(0, $jsFiles);
+
+
+		$otherFiles = $presenter->webLoader->getOtherFiles();
+
+		Tester\Assert::count(0, $otherFiles);
 	}
 }
 
