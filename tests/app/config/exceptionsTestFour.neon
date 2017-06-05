@@ -1,0 +1,5 @@
+webloader:
+	files:
+		-
+			originalFile: %appDir%/../files/foo.css
+			tag: css

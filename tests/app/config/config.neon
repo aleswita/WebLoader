@@ -3,10 +3,10 @@ extensions:
 
 application:
 	mapping:
-		*: AlesWita\Components\WebLoader\Tests\App\*Presenter
+		*: AlesWita\Components\WebLoader\Tests\App\Presenters\*Presenter
 
 services:
-	test.presenter:
-		class: AlesWita\Components\WebLoader\Tests\App\TestPresenter
+	baseLinks.presenter:
+		class: AlesWita\Components\WebLoader\Tests\App\Presenters\BaseLinksPresenter
 
-	routing.router: AlesWita\Components\WebLoader\Tests\App\Router::createRouter
+	routing.router: AlesWita\Components\WebLoader\Tests\App\Router\Router::createRouter
