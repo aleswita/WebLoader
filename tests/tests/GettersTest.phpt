@@ -108,7 +108,7 @@ final class GettersTest extends Tester\TestCase
 		Tester\Assert::same(NULL, $presenter->webLoader->getExpiration());
 		Tester\Assert::true($presenter->webLoader->getDebugMode());
 		Tester\Assert::false($presenter->webLoader->getProductionMode());
-		Tester\Assert::same(AlesWita\Components\WebLoader::CACHE_DEFAULT_NAMESPACE, $presenter->webLoader->getCacheNamespace());
+		Tester\Assert::same(AlesWita\Components\WebLoader\Factory::CACHE_DEFAULT_NAMESPACE, $presenter->webLoader->getCacheNamespace());
 
 		$cssFiles = $presenter->webLoader->getCssFiles();
 		Tester\Assert::count(0, $cssFiles);
