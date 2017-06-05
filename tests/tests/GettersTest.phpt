@@ -37,6 +37,8 @@ final class GettersTest extends Tester\TestCase
 
 		$presenter = $presenterFactory->createPresenter("Getters");
 
+		var_dump(__DIR__);
+		var_dump($presenter->webLoader->getWwwDir());
 		Tester\Assert::same("1 WEEK", $presenter->webLoader->getExpiration());
 		//Tester\Assert::contains("aleswita\\webloader\\tests\\tests", $presenter->webLoader->getWwwDir());
 		Tester\Assert::false($presenter->webLoader->getDebugMode());
