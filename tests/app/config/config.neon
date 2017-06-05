@@ -9,4 +9,7 @@ services:
 	baseLinks.presenter:
 		class: AlesWita\Components\WebLoader\Tests\App\Presenters\BaseLinksPresenter
 
+	getters.presenter:
+		class: AlesWita\Components\WebLoader\Tests\App\Presenters\GettersPresenter
+
 	routing.router: AlesWita\Components\WebLoader\Tests\App\Router\Router::createRouter

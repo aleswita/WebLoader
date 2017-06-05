@@ -1,0 +1,17 @@
+webloader:
+	expiration: 1 WEEK
+	cache:
+		namespace: foo
+	files:
+		-
+			originalFile: %appDir%/../files/css.css
+			tag: css
+		-
+			originalFile: %appDir%/../files/js.js
+			tag: js
+
+	folders:
+		-
+			originalFolder: %appDir%/../files/folder
+			tag: other
+			folder: other

@@ -84,19 +84,19 @@ class Factory
 	}
 
 	/**
-	 * @param string
+	 * @param bool
 	 * @return self
 	 */
-	public function setDebugMode(string $debugMode): self {
+	public function setDebugMode(bool $debugMode): self {
 		$this->debugMode = $debugMode;
 		return $this;
 	}
 
 	/**
-	 * @param string
+	 * @param bool
 	 * @return self
 	 */
-	public function setProductionMode(string $productionMode): self {
+	public function setProductionMode(bool $productionMode): self {
 		$this->productionMode = $productionMode;
 		return $this;
 	}
@@ -176,6 +176,86 @@ class Factory
 	/** ******************** */
 
 	/**
+	 * @return string|NULL
+	 */
+	public function getExpiration(): ?string {
+	    return $this->expiration;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getWwwDir(): string {
+		return $this->wwwDir;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function getDebugMode(): bool {
+		return $this->debugMode;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function getProductionMode(): bool {
+		return $this->productionMode;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getUniqueId(): string {
+		return $this->uniqueId;
+	}
+
+	/**
+	 * @return Nette\Caching\Cache
+	 */
+	public function getCache(): Nette\Caching\Cache {
+		if ($this->cache === NULL) {
+			$this->cache = new Caching\Cache($this->cacheStorage, $this->cacheNamespace);
+		}
+		return $this->cache;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getCacheNamespace(): string {
+		return $this->cacheNamespace;
+	}
+
+	/**
+	 * @return Nette\Http\IRequest
+	 */
+	public function getHttpRequest(): Nette\Http\IRequest {
+    	return $this->httpRequest;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getCssFiles(): array {
+		return $this->cssFiles;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getJsFiles(): array {
+		return $this->jsFiles;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getOtherFiles(): array {
+		return $this->otherFiles;
+	}
+
+	/**
 	 * @param string
 	 * @return AlesWita\Components\WebLoader\Css
 	 */
@@ -201,16 +281,6 @@ class Factory
 			->setCache($this->getCache());
 
 		return $jsLoader;
-	}
-
-	/**
-	 * @return Nette\Caching\Cache
-	 */
-	public function getCache(): Nette\Caching\Cache {
-		if ($this->cache === NULL) {
-			$this->cache = new Caching\Cache($this->cacheStorage, $this->cacheNamespace);
-		}
-		return $this->cache;
 	}
 
 	/**
