@@ -54,7 +54,7 @@ class Factory
 	/** @var Nette\Caching\IStorage */
 	private $cacheStorage;
 
-	/** @vr string */
+	/** @var string */
 	private $cacheNamespace = self::CACHE_DEFAULT_NAMESPACE;
 
 	/** @var Nette\Http\Request */
