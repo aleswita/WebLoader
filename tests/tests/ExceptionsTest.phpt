@@ -29,6 +29,25 @@ require_once __DIR__ . "/../app/router/Router.php";
 final class ExceptionsTest extends Tester\TestCase
 {
 	/**
+	 * @return void
+	 */
+	public function tearDown(): void {
+		parent::tearDown();
+
+		foreach (scandir(__DIR__) as $find) {
+			if (!in_array($find, [".", ".."], TRUE)) {
+				if (is_dir(__DIR__ . "/{$find}")) {
+					Nette\Utils\FileSystem::delete(__DIR__ . "/{$find}");
+				}
+			}
+
+		}
+
+		sleep(1);
+		clearstatcache();
+	}
+
+	/**
 	 * @throws AlesWita\Components\WebLoader\WebLoaderException Missing parameter 'originalFile' in file configuration!
 	 * @return void
 	 */

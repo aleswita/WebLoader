@@ -31,6 +31,25 @@ final class BaseLinksTest extends Tester\TestCase
 	/**
 	 * @return void
 	 */
+	public function tearDown(): void {
+		parent::tearDown();
+
+		foreach (scandir(__DIR__) as $find) {
+			if (!in_array($find, [".", ".."], TRUE)) {
+				if (is_dir(__DIR__ . "/{$find}")) {
+					Nette\Utils\FileSystem::delete(__DIR__ . "/{$find}");
+				}
+			}
+
+		}
+
+		sleep(1);
+		clearstatcache();
+	}
+
+	/**
+	 * @return void
+	 */
 	public function testOne(): void {
 		$configurator = new Nette\Configurator();
 		$configurator->setTempDirectory(TEMP_DIR);
