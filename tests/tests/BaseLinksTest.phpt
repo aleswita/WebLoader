@@ -104,6 +104,6 @@ final class BaseLinksTest extends Tester\TestCase
 $test = new BaseLinksTest;
 $test->run();
 
-Nette\Utils\FileSystem::delete(__DIR__ . "/css");
-Nette\Utils\FileSystem::delete(__DIR__ . "/js");
-Nette\Utils\FileSystem::delete(__DIR__ . "/other");
+//Nette\Utils\FileSystem::delete(__DIR__ . "/css");
+//Nette\Utils\FileSystem::delete(__DIR__ . "/js");
+//Nette\Utils\FileSystem::delete(__DIR__ . "/other");
