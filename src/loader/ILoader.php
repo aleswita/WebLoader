@@ -15,7 +15,7 @@ use Nette\Application;
 
 
 /**
- * @author Aleš Wita
+ * @author Ales Wita
  * @license MIT
  */
 interface ILoader

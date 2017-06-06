@@ -11,7 +11,7 @@ namespace AlesWita\Components\WebLoader;
 
 
 /**
- * @author Aleš Wita
+ * @author Ales Wita
  * @license MIT
  */
 class WebLoaderException extends \Exception

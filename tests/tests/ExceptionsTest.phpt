@@ -22,7 +22,7 @@ require_once __DIR__ . "/../app/router/Router.php";
 
 
 /**
- * @author Aleš Wita
+ * @author Ales Wita
  * @license MIT
  */
 final class ExceptionsTest extends Tester\TestCase

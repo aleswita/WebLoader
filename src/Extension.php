@@ -14,7 +14,7 @@ use Nette\Utils;
 
 
 /**
- * @author Aleš Wita
+ * @author Ales Wita
  * @license MIT
  */
 class Extension extends Nette\DI\CompilerExtension

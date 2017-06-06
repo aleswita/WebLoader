@@ -22,7 +22,7 @@ require_once __DIR__ . "/../app/router/Router.php";
 
 
 /**
- * @author Aleš Wita
+ * @author Ales Wita
  * @license MIT
  */
 final class BaseLinksTest extends Tester\TestCase
@@ -52,6 +52,13 @@ final class BaseLinksTest extends Tester\TestCase
 		Tester\Assert::same("stylesheet", (string) $data[0]["rel"]);
 		Tester\Assert::contains("http:/css/css.css?v=", (string) $data[0]["href"]);
 		Tester\Assert::same("text/css", (string) $data[0]["type"]);
+
+
+		$cssFiles = $presenter->webLoader->getCssFiles();
+
+		Tester\Assert::count(1, $cssFiles);
+		Tester\Assert::true(file_exists($cssFiles[0]["file"]));
+		Tester\Assert::same(md5_file($cssFiles[0]["file"]), md5_file($cssFiles[0]["originalFile"]));
 	}
 
 	/**
@@ -78,6 +85,13 @@ final class BaseLinksTest extends Tester\TestCase
 		Tester\Assert::count(1, $data);
 		Tester\Assert::contains("http:/js/js.js?v=", (string) $data[0]["src"]);
 		Tester\Assert::same("text/javascript", (string) $data[0]["type"]);
+
+
+		$jsFiles = $presenter->webLoader->getJsFiles();
+
+		Tester\Assert::count(1, $jsFiles);
+		Tester\Assert::true(file_exists($jsFiles[0]["file"]));
+		Tester\Assert::same(md5_file($jsFiles[0]["file"]), md5_file($jsFiles[0]["originalFile"]));
 	}
 }
 

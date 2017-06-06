@@ -14,7 +14,7 @@ use Nette;
 
 
 /**
- * @author Aleš Wita
+ * @author Ales Wita
  * @license MIT
  */
 final class BaseLinksPresenter extends Nette\Application\UI\Presenter
