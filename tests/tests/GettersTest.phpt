@@ -131,7 +131,3 @@ final class GettersTest extends Tester\TestCase
 
 $test = new GettersTest;
 $test->run();
-
-//Nette\Utils\FileSystem::delete(__DIR__ . "/css");
-//Nette\Utils\FileSystem::delete(__DIR__ . "/js");
-//Nette\Utils\FileSystem::delete(__DIR__ . "/other");

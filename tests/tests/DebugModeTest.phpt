@@ -36,45 +36,46 @@ final class DebugModeTest extends Tester\TestCase
 		$configurator->setDebugMode(TRUE);
 		$configurator->setTempDirectory(TEMP_DIR);
 		$configurator->addConfig(__DIR__ . "/../app/config/config.neon");
-		$configurator->addConfig(__DIR__ . "/../app/config/baseLinksTestOne.neon");
+		$configurator->addConfig(__DIR__ . "/../app/config/debugModeTestOne.neon");
 
 		$container = $configurator->createContainer();
 		$presenterFactory = $container->getByType("Nette\\Application\\IPresenterFactory");
 
-		$presenter = $presenterFactory->createPresenter("BaseLinks");
+		$presenter = $presenterFactory->createPresenter("DebugMode");
 		$presenter->autoCanonicalize = FALSE;
-		$request = new Nette\Application\Request("BaseLinks", "GET", ["action" => "one"]);
+		$request = new Nette\Application\Request("DebugMode", "GET", ["action" => "one"]);
 		$response = $presenter->run($request);
 
 		$source = (string) $response->getSource();
+		$cache = $presenter->webLoader->getCache();
 
+		Tester\Assert::same($presenter->webLoader->getUniqueId(), $cache->load("uniqueId"));
 
 		$cssFiles = $presenter->webLoader->getCssFiles();
 
 		Tester\Assert::count(1, $cssFiles);
 		Nette\Utils\FileSystem::delete($cssFiles[0]["file"]);
+
 		$presenter->webLoader->getCache()->clean([Nette\Caching\Cache::TAGS => [$presenter->webLoader->getCacheTag()]]);
 
 
-		$presenter = $presenterFactory->createPresenter("BaseLinks");
+		// next request
+		$presenter = $presenterFactory->createPresenter("DebugMode");
 		$presenter->autoCanonicalize = FALSE;
-		$request = new Nette\Application\Request("BaseLinks", "GET", ["action" => "one"]);
+		$request = new Nette\Application\Request("DebugMode", "GET", ["action" => "one"]);
 		$response = $presenter->run($request);
 
 		$source = (string) $response->getSource();
-
 
 		$cssFiles = $presenter->webLoader->getCssFiles();
 
 		Tester\Assert::count(1, $cssFiles);
 		Tester\Assert::true(file_exists($cssFiles[0]["file"]));
+
+		$presenter->webLoader->getCache()->clean([Nette\Caching\Cache::TAGS => [$presenter->webLoader->getCacheTag()]]);
 	}
 }
 
 
 $test = new DebugModeTest;
 $test->run();
-
-//Nette\Utils\FileSystem::delete(__DIR__ . "/css");
-//Nette\Utils\FileSystem::delete(__DIR__ . "/js");
-//Nette\Utils\FileSystem::delete(__DIR__ . "/other");
