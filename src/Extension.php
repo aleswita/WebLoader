@@ -23,6 +23,7 @@ class Extension extends Nette\DI\CompilerExtension
 		"expiration" => NULL,
 		"cache" => [
 			"namespace" => NULL,
+			"tag" => NULL,
 		],
 		"files" => NULL,
 		"folders" => NULL,
@@ -49,6 +50,9 @@ class Extension extends Nette\DI\CompilerExtension
 		}
 		if ($config["cache"]["namespace"] !== NULL) {
 			$webLoader->addSetup("\$service->setCacheNamespace(?)", [$config["cache"]["namespace"]]);
+		}
+		if ($config["cache"]["tag"] !== NULL) {
+			$webLoader->addSetup("\$service->setCacheTag(?)", [$config["cache"]["tag"]]);
 		}
 
 		if (is_array($config["folders"])) {
@@ -78,11 +82,11 @@ class Extension extends Nette\DI\CompilerExtension
 
 				foreach ($finder as $file) {
 					$config["files"][] = [
-						//"originalFile" => $file->getLinkTarget(),
+						//"originalFile" => $file->getLinkTarget(),// failed on Linux
 						"originalFile" => $file->getRealPath(),
 						"tag" => $folderSettings["tag"],
 						"namespace" => $folderSettings["namespace"],
-						//"baseName" => basename($file->getLinkTarget()),
+						//"baseName" => basename($file->getLinkTarget()),// failed on Linux
 						"baseName" => basename($file->getRealPath()),
 						"folder" => (isset($folderSettings["folder"]) ? $folderSettings["folder"] : NULL),
 					];

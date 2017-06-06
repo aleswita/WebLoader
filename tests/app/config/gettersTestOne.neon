@@ -2,6 +2,7 @@ webloader:
 	expiration: 1 WEEK
 	cache:
 		namespace: foo
+		tag: foo
 	files:
 		-
 			originalFile: %appDir%/../files/css.css

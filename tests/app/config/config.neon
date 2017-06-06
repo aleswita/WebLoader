@@ -12,4 +12,7 @@ services:
 	getters.presenter:
 		class: AlesWita\Components\WebLoader\Tests\App\Presenters\GettersPresenter
 
+	cache.presenter:
+		class: AlesWita\Components\WebLoader\Tests\App\Presenters\CachePresenter
+
 	routing.router: AlesWita\Components\WebLoader\Tests\App\Router\Router::createRouter

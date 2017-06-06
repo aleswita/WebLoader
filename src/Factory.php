@@ -32,7 +32,7 @@ class Factory
 
 	/** cache constants */
 	const CACHE_DEFAULT_NAMESPACE = "Web.Loader";
-	const CACHE_TAG = "Web.Loader";
+	const CACHE_DEFAULT_TAG = "Web.Loader";
 
 	const DEFAULT_NAMESPACE = "default";
 
@@ -56,6 +56,9 @@ class Factory
 
 	/** @var string */
 	private $cacheNamespace = self::CACHE_DEFAULT_NAMESPACE;
+
+	/** @var string */
+	private $cacheTag = self::CACHE_DEFAULT_TAG;
 
 	/** @var Nette\Http\Request */
 	private $httpRequest;
@@ -125,6 +128,15 @@ class Factory
 	 */
 	public function setCacheNamespace(string $namespace): self {
 		$this->cacheNamespace = $namespace;
+		return $this;
+	}
+
+	/**
+	 * @param string
+	 * @return self
+	 */
+	public function setCacheTag(string $tag): self {
+		$this->cacheTag = $tag;
 		return $this;
 	}
 
@@ -228,6 +240,13 @@ class Factory
 	}
 
 	/**
+	 * @return string
+	 */
+	public function getCacheTag(): string {
+		return $this->cacheTag;
+	}
+
+	/**
 	 * @return Nette\Http\IRequest
 	 */
 	public function getHttpRequest(): Nette\Http\IRequest {
@@ -265,6 +284,7 @@ class Factory
 		$cssLoader->setFiles($this->prepare($namespace))
 			->setNamespace($namespace)
 			->setCache($this->getCache())
+			->setCacheTag($this->cacheTag)
 			->setExpiration($this->expiration);
 
 		return $cssLoader;
@@ -280,6 +300,7 @@ class Factory
 		$jsLoader->setFiles($this->prepare($namespace))
 			->setNamespace($namespace)
 			->setCache($this->getCache())
+			->setCacheTag($this->cacheTag)
 			->setExpiration($this->expiration);
 
 		return $jsLoader;
@@ -304,21 +325,21 @@ class Factory
 		if ($this->debugMode) {
 			// invalidate cache, if some changes in container (only for debug mode, production no need)
 			if ($this->uniqueId !== $this->getCache()->load("uniqueId")) {
-				$this->getCache()->clean([Caching\Cache::TAGS => [self::CACHE_TAG]]);
+				$this->getCache()->clean([Caching\Cache::TAGS => [$this->cacheTag]]);
 				$this->getCache()->save("uniqueId", function (& $dp) use ($namespace): string {
-					$dp = [Caching\Cache::TAGS => [self::CACHE_TAG]];
+					$dp = [Caching\Cache::TAGS => [$this->cacheTag]];
 					return $this->uniqueId;
 				});
 			}
 
 			// checking hash with original file (only for debug mode, production no need)
 			if ($this->prepareFiles($namespace)) {
-				$this->getCache()->clean([Caching\Cache::TAGS => [self::CACHE_TAG]]);
+				$this->getCache()->clean([Caching\Cache::TAGS => [$this->cacheTag]]);
 			}
 		}
 
 		return $this->getCache()->load("namespace-{$namespace}", function (& $dp) use ($namespace): array {
-			$dp = [Caching\Cache::TAGS => [self::CACHE_TAG]];
+			$dp = [Caching\Cache::TAGS => [$this->cacheTag]];
 			$output = [];
 			$basePath = $this->getBasePath();
 

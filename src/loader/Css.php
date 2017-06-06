@@ -40,7 +40,7 @@ class Css extends Loader
 	public function render(): void {
 		echo $this->cache->load("namespace-{$this->namespace}-tag-" . Factory::FILE_TAG_CSS, function (& $dp): string {
 			$dp = [
-				Caching\Cache::TAGS => [Factory::CACHE_TAG],
+				Caching\Cache::TAGS => [$this->cacheTag],
 				Caching\Cache::EXPIRE => $this->expiration,
 			];
 

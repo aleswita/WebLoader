@@ -13,7 +13,7 @@ use AlesWita;
 use Nette;
 
 
-final class BaseLinksPresenter extends Nette\Application\UI\Presenter
+final class CachePresenter extends Nette\Application\UI\Presenter
 {
 	/** @var AlesWita\Components\WebLoader\Factory @inject */
 	public $webLoader;
@@ -22,14 +22,7 @@ final class BaseLinksPresenter extends Nette\Application\UI\Presenter
 	 * @return void
 	 */
 	public function actionOne(): void {
-		$this->setView("cssLoader");
-	}
-
-	/**
-	 * @return void
-	 */
-	public function actionTwo(): void {
-		$this->setView("jsLoader");
+		$this->setView("default");
 	}
 
 	/**

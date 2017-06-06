@@ -39,6 +39,12 @@ interface ILoader
 	public function setCache(Nette\Caching\Cache $cache): AlesWita\Components\WebLoader\Loader\ILoader;
 
 	/**
+	 * @param string
+	 * @return AlesWita\Components\WebLoader\Loader\ILoader
+	 */
+	public function setCacheTag(string $tag): AlesWita\Components\WebLoader\Loader\ILoader;
+
+	/**
 	 * @param string|NULL
 	 * @return AlesWita\Components\WebLoader\Loader\ILoader
 	 */

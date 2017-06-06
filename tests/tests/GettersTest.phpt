@@ -18,6 +18,7 @@ use Tester;
 require_once __DIR__ . "/../bootstrap.php";
 require_once __DIR__ . "/../app/presenters/BaseLinksPresenter.php";
 require_once __DIR__ . "/../app/presenters/GettersPresenter.php";
+require_once __DIR__ . "/../app/presenters/CachePresenter.php";
 require_once __DIR__ . "/../app/router/Router.php";
 
 
@@ -44,6 +45,7 @@ final class GettersTest extends Tester\TestCase
 		Tester\Assert::same(13, strlen($presenter->webLoader->getUniqueId()));
 		Tester\Assert::true($presenter->webLoader->getCache() instanceof Nette\Caching\Cache);
 		Tester\Assert::same("foo", $presenter->webLoader->getCacheNamespace());
+		Tester\Assert::same("foo", $presenter->webLoader->getCacheTag());
 		Tester\Assert::true($presenter->webLoader->getHttpRequest() instanceof Nette\Http\IRequest);
 
 
@@ -104,11 +106,15 @@ final class GettersTest extends Tester\TestCase
 		$presenterFactory = $container->getByType("Nette\\Application\\IPresenterFactory");
 
 		$presenter = $presenterFactory->createPresenter("Getters");
+		$presenter->autoCanonicalize = FALSE;
+		$request = new Nette\Application\Request("Getters", "GET", ["action" => "one"]);
+		$response = $presenter->run($request);
 
 		Tester\Assert::same(NULL, $presenter->webLoader->getExpiration());
 		Tester\Assert::true($presenter->webLoader->getDebugMode());
 		Tester\Assert::false($presenter->webLoader->getProductionMode());
 		Tester\Assert::same(AlesWita\Components\WebLoader\Factory::CACHE_DEFAULT_NAMESPACE, $presenter->webLoader->getCacheNamespace());
+		Tester\Assert::same(AlesWita\Components\WebLoader\Factory::CACHE_DEFAULT_TAG, $presenter->webLoader->getCacheTag());
 
 		$cssFiles = $presenter->webLoader->getCssFiles();
 		Tester\Assert::count(0, $cssFiles);
@@ -118,6 +124,11 @@ final class GettersTest extends Tester\TestCase
 
 		$otherFiles = $presenter->webLoader->getOtherFiles();
 		Tester\Assert::count(0, $otherFiles);
+
+
+
+
+
 	}
 }
 

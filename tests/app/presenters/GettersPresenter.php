@@ -45,6 +45,6 @@ final class GettersPresenter extends Nette\Application\UI\Presenter
 	 */
 	protected function shutdown($response): void {
 		parent::shutdown($response);
-		$this->webLoader->getCache()->clean([Nette\Caching\Cache::TAGS => [AlesWita\Components\WebLoader\Factory::CACHE_TAG]]);
+		$this->webLoader->getCache()->clean([Nette\Caching\Cache::TAGS => [$this->webLoader->getCacheTag()]]);
 	}
 }
