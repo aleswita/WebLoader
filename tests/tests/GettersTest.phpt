@@ -110,12 +110,10 @@ final class GettersTest extends Tester\TestCase
 		$presenterFactory = $container->getByType("Nette\\Application\\IPresenterFactory");
 
 		$presenter = $presenterFactory->createPresenter("Getters");
-		$cache = $presenter->webLoader->getCache();
 
 		Tester\Assert::same(NULL, $presenter->webLoader->getExpiration());
 		Tester\Assert::true($presenter->webLoader->getDebugMode());
 		Tester\Assert::false($presenter->webLoader->getProductionMode());
-		Tester\Assert::same($cache->load("uniqueId"), strlen($presenter->webLoader->getUniqueId()));
 		Tester\Assert::same(AlesWita\Components\WebLoader\Factory::CACHE_DEFAULT_NAMESPACE, $presenter->webLoader->getCacheNamespace());
 		Tester\Assert::same(AlesWita\Components\WebLoader\Factory::CACHE_DEFAULT_TAG, $presenter->webLoader->getCacheTag());
 
