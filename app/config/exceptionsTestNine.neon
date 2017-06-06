@@ -1,6 +1,0 @@
-webloader:
-	folders:
-		-
-			originalFolder: %appDir%/../files
-			tag: other
-			namespace: foo
