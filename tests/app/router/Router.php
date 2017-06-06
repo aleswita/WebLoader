@@ -12,6 +12,10 @@ namespace AlesWita\Components\WebLoader\Tests\App\Router;
 use Nette;
 
 
+/**
+ * @author Aleš Wita
+ * @license MIT
+ */
 final class Router
 {
 	/**

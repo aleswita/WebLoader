@@ -18,10 +18,13 @@ use Tester;
 require_once __DIR__ . "/../bootstrap.php";
 require_once __DIR__ . "/../app/presenters/BaseLinksPresenter.php";
 require_once __DIR__ . "/../app/presenters/GettersPresenter.php";
-require_once __DIR__ . "/../app/presenters/CachePresenter.php";
 require_once __DIR__ . "/../app/router/Router.php";
 
 
+/**
+ * @author Aleš Wita
+ * @license MIT
+ */
 final class GettersTest extends Tester\TestCase
 {
 	/**
@@ -106,9 +109,6 @@ final class GettersTest extends Tester\TestCase
 		$presenterFactory = $container->getByType("Nette\\Application\\IPresenterFactory");
 
 		$presenter = $presenterFactory->createPresenter("Getters");
-		$presenter->autoCanonicalize = FALSE;
-		$request = new Nette\Application\Request("Getters", "GET", ["action" => "one"]);
-		$response = $presenter->run($request);
 
 		Tester\Assert::same(NULL, $presenter->webLoader->getExpiration());
 		Tester\Assert::true($presenter->webLoader->getDebugMode());
@@ -124,11 +124,6 @@ final class GettersTest extends Tester\TestCase
 
 		$otherFiles = $presenter->webLoader->getOtherFiles();
 		Tester\Assert::count(0, $otherFiles);
-
-
-
-
-
 	}
 }
 

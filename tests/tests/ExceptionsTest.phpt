@@ -16,8 +16,15 @@ use Nette;
 use Tester;
 
 require_once __DIR__ . "/../bootstrap.php";
+require_once __DIR__ . "/../app/presenters/BaseLinksPresenter.php";
+require_once __DIR__ . "/../app/presenters/GettersPresenter.php";
+require_once __DIR__ . "/../app/router/Router.php";
 
 
+/**
+ * @author Aleš Wita
+ * @license MIT
+ */
 final class ExceptionsTest extends Tester\TestCase
 {
 	/**

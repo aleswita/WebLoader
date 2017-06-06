@@ -10,6 +10,10 @@ declare(strict_types=1);
 namespace AlesWita\Components\WebLoader;
 
 
+/**
+ * @author Aleš Wita
+ * @license MIT
+ */
 class WebLoaderException extends \Exception
 {
 }

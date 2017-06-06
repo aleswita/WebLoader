@@ -26,11 +26,7 @@ class Css extends Loader
 	 * @return AlesWita\Components\WebLoader\Loader\ILoader
 	 */
 	public function setFiles(array $files): AlesWita\Components\WebLoader\Loader\ILoader {
-		if (isset($files[Factory::FILE_TAG_CSS])) {
-			$this->files = $files[Factory::FILE_TAG_CSS];
-		} else {
-			$this->files = [];
-		}
+		$this->files = (isset($files[Factory::FILE_TAG_CSS]) ? $files[Factory::FILE_TAG_CSS] : []);
 		return $this;
 	}
 

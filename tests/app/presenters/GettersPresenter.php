@@ -13,6 +13,10 @@ use AlesWita;
 use Nette;
 
 
+/**
+ * @author Aleš Wita
+ * @license MIT
+ */
 final class GettersPresenter extends Nette\Application\UI\Presenter
 {
 	/** @var AlesWita\Components\WebLoader\Factory @inject */

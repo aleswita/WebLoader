@@ -26,11 +26,7 @@ class Js extends Loader
 	 * @return AlesWita\Components\WebLoader\Loader\ILoader
 	 */
 	public function setFiles(array $files): AlesWita\Components\WebLoader\Loader\ILoader {
-		if (isset($files[Factory::FILE_TAG_JS])) {
-			$this->files = $files[Factory::FILE_TAG_JS];
-		} else {
-			$this->files = [];
-		}
+		$this->files = (isset($files[Factory::FILE_TAG_JS]) ? $files[Factory::FILE_TAG_JS] : []);
 		return $this;
 	}
 

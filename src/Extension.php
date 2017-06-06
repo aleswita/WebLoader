@@ -15,6 +15,7 @@ use Nette\Utils;
 
 /**
  * @author Aleš Wita
+ * @license MIT
  */
 class Extension extends Nette\DI\CompilerExtension
 {

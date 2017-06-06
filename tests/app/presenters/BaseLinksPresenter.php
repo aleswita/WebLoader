@@ -13,6 +13,10 @@ use AlesWita;
 use Nette;
 
 
+/**
+ * @author Aleš Wita
+ * @license MIT
+ */
 final class BaseLinksPresenter extends Nette\Application\UI\Presenter
 {
 	/** @var AlesWita\Components\WebLoader\Factory @inject */
