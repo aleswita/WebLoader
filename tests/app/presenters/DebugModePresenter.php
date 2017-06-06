@@ -35,4 +35,13 @@ final class DebugModePresenter extends Nette\Application\UI\Presenter
 	protected function createComponentCss(): AlesWita\Components\WebLoader\Loader\Css {
 		return $this->webLoader->getCssLoader();
 	}
+
+	/**
+	 * @param Nette\Application\IResponse
+	 * @return void
+	 */
+	protected function shutdown($response): void {
+		parent::shutdown($response);
+		$this->webLoader->getCache()->clean([Nette\Caching\Cache::TAGS => [$this->webLoader->getCacheTag()]]);
+	}
 }

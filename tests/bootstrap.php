@@ -15,6 +15,6 @@ if (@!include __DIR__ . "/../vendor/autoload.php") {
 
 Tester\Environment::setup();
 
-define("TEMP_DIR", __DIR__ . "/temp/" . (isset($_SERVER["argv"]) ? md5(serialize($_SERVER["argv"])) : getmypid()));
+define("TEMP_DIR", __DIR__ . "/tmp/" . lcg_value());
 @mkdir(dirname(TEMP_DIR));
 @mkdir(TEMP_DIR);

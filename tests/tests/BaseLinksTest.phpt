@@ -45,6 +45,9 @@ final class BaseLinksTest extends Tester\TestCase
 		$request = new Nette\Application\Request("BaseLinks", "GET", ["action" => "one"]);
 		$response = $presenter->run($request);
 
+		Tester\Assert::true($response instanceof Nette\Application\Responses\TextResponse);
+		Tester\Assert::true($response->getSource() instanceof Nette\Application\UI\ITemplate);
+
 		$source = (string) $response->getSource();
 		$dom = Tester\DomQuery::fromHtml($source);
 		$data = $dom->find("link");
@@ -80,6 +83,9 @@ final class BaseLinksTest extends Tester\TestCase
 		$presenter->autoCanonicalize = FALSE;
 		$request = new Nette\Application\Request("BaseLinks", "GET", ["action" => "two"]);
 		$response = $presenter->run($request);
+
+		Tester\Assert::true($response instanceof Nette\Application\Responses\TextResponse);
+		Tester\Assert::true($response->getSource() instanceof Nette\Application\UI\ITemplate);
 
 		$source = (string) $response->getSource();
 		$dom = Tester\DomQuery::fromHtml($source);

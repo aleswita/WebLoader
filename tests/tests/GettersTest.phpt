@@ -41,6 +41,12 @@ final class GettersTest extends Tester\TestCase
 		$presenterFactory = $container->getByType("Nette\\Application\\IPresenterFactory");
 
 		$presenter = $presenterFactory->createPresenter("Getters");
+		$presenter->autoCanonicalize = FALSE;
+		$request = new Nette\Application\Request("Getters", "GET", ["action" => "one"]);
+		$response = $presenter->run($request);
+
+		Tester\Assert::true($response instanceof Nette\Application\Responses\TextResponse);
+		Tester\Assert::true($response->getSource() instanceof Nette\Application\UI\ITemplate);
 
 		Tester\Assert::same("1 WEEK", $presenter->webLoader->getExpiration());
 		Tester\Assert::same(__DIR__, $presenter->webLoader->getWwwDir());
@@ -110,6 +116,12 @@ final class GettersTest extends Tester\TestCase
 		$presenterFactory = $container->getByType("Nette\\Application\\IPresenterFactory");
 
 		$presenter = $presenterFactory->createPresenter("Getters");
+		$presenter->autoCanonicalize = FALSE;
+		$request = new Nette\Application\Request("Getters", "GET", ["action" => "one"]);
+		$response = $presenter->run($request);
+
+		Tester\Assert::true($response instanceof Nette\Application\Responses\TextResponse);
+		Tester\Assert::true($response->getSource() instanceof Nette\Application\UI\ITemplate);
 
 		Tester\Assert::same(NULL, $presenter->webLoader->getExpiration());
 		Tester\Assert::true($presenter->webLoader->getDebugMode());

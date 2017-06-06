@@ -46,33 +46,13 @@ final class DebugModeTest extends Tester\TestCase
 		$request = new Nette\Application\Request("DebugMode", "GET", ["action" => "one"]);
 		$response = $presenter->run($request);
 
+		Tester\Assert::true($response instanceof Nette\Application\Responses\TextResponse);
+		Tester\Assert::true($response->getSource() instanceof Nette\Application\UI\ITemplate);
+
 		$source = (string) $response->getSource();
 		$cache = $presenter->webLoader->getCache();
 
-		//Tester\Assert::same($presenter->webLoader->getUniqueId(), $cache->load("uniqueId"));
-
-		$cssFiles = $presenter->webLoader->getCssFiles();
-
-		Tester\Assert::count(1, $cssFiles);
-		Nette\Utils\FileSystem::delete($cssFiles[0]["file"]);
-
-		$presenter->webLoader->getCache()->clean([Nette\Caching\Cache::TAGS => [$presenter->webLoader->getCacheTag()]]);
-
-
-		// next request
-		$presenter = $presenterFactory->createPresenter("DebugMode");
-		$presenter->autoCanonicalize = FALSE;
-		$request = new Nette\Application\Request("DebugMode", "GET", ["action" => "one"]);
-		$response = $presenter->run($request);
-
-		$source = (string) $response->getSource();
-
-		$cssFiles = $presenter->webLoader->getCssFiles();
-
-		Tester\Assert::count(1, $cssFiles);
-		Tester\Assert::true(file_exists($cssFiles[0]["file"]));
-
-		$presenter->webLoader->getCache()->clean([Nette\Caching\Cache::TAGS => [$presenter->webLoader->getCacheTag()]]);
+		Tester\Assert::same($presenter->webLoader->getUniqueId(), $cache->load("uniqueId"));
 	}
 }
 
