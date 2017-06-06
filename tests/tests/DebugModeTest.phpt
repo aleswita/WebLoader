@@ -31,8 +31,8 @@ final class DebugModeTest extends Tester\TestCase
 	/**
 	 * @return void
 	 */
-	public function tearDown(): void {
-		parent::tearDown();
+	public function setUp(): void {
+		parent::setUp();
 
 		foreach (scandir(__DIR__) as $find) {
 			if (!in_array($find, [".", ".."], TRUE)) {
@@ -40,7 +40,6 @@ final class DebugModeTest extends Tester\TestCase
 					Nette\Utils\FileSystem::delete(__DIR__ . "/{$find}");
 				}
 			}
-
 		}
 
 		sleep(1);
