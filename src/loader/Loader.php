@@ -12,7 +12,6 @@ namespace AlesWita\Components\WebLoader\Loader;
 use AlesWita;
 use Nette;
 use Nette\Application;
-use Nette\Utils;
 
 
 /**
