@@ -12,4 +12,7 @@ services:
 	getters.presenter:
 		class: AlesWita\Components\WebLoader\Tests\App\Presenters\GettersPresenter
 
+	debugMode.presenter:
+		class: AlesWita\Components\WebLoader\Tests\App\Presenters\DebugModePresenter
+
 	routing.router: AlesWita\Components\WebLoader\Tests\App\Router\Router::createRouter

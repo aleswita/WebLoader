@@ -18,6 +18,7 @@ use Tester;
 require_once __DIR__ . "/../bootstrap.php";
 require_once __DIR__ . "/../app/presenters/BaseLinksPresenter.php";
 require_once __DIR__ . "/../app/presenters/GettersPresenter.php";
+require_once __DIR__ . "/../app/presenters/DebugModePresenter.php";
 require_once __DIR__ . "/../app/router/Router.php";
 
 
@@ -161,3 +162,7 @@ final class ExceptionsTest extends Tester\TestCase
 
 $test = new ExceptionsTest;
 $test->run();
+
+Nette\Utils\FileSystem::delete(__DIR__ . "/css");
+Nette\Utils\FileSystem::delete(__DIR__ . "/js");
+Nette\Utils\FileSystem::delete(__DIR__ . "/other");
