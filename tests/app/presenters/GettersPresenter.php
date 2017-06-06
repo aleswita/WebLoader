@@ -17,4 +17,34 @@ final class GettersPresenter extends Nette\Application\UI\Presenter
 {
 	/** @var AlesWita\Components\WebLoader\Factory @inject */
 	public $webLoader;
+
+	/**
+	 * @return void
+	 */
+	public function actionOne(): void {
+		$this->setView("default");
+	}
+
+	/**
+	 * @return AlesWita\Components\WebLoader\Loader\Css
+	 */
+	protected function createComponentCss(): AlesWita\Components\WebLoader\Loader\Css {
+		return $this->webLoader->getCssLoader();
+	}
+
+	/**
+	 * @return AlesWita\Components\WebLoader\Loader\Js
+	 */
+	protected function createComponentJs(): AlesWita\Components\WebLoader\Loader\Js {
+		return $this->webLoader->getJsLoader();
+	}
+
+	/**
+	 * @param Nette\Application\IResponse
+	 * @return void
+	 */
+	protected function shutdown($response): void {
+		parent::shutdown($response);
+		$this->webLoader->getCache()->clean([Nette\Caching\Cache::TAGS => [AlesWita\Components\WebLoader\Factory::CACHE_TAG]]);
+	}
 }

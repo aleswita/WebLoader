@@ -264,7 +264,8 @@ class Factory
 
 		$cssLoader->setFiles($this->prepare($namespace))
 			->setNamespace($namespace)
-			->setCache($this->getCache(), $this->expiration);
+			->setCache($this->getCache())
+			->setExpiration($this->expiration);
 
 		return $cssLoader;
 	}
@@ -278,7 +279,8 @@ class Factory
 
 		$jsLoader->setFiles($this->prepare($namespace))
 			->setNamespace($namespace)
-			->setCache($this->getCache());
+			->setCache($this->getCache())
+			->setExpiration($this->expiration);
 
 		return $jsLoader;
 	}

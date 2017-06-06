@@ -61,10 +61,10 @@ abstract class Loader extends Application\UI\Control implements ILoader
 	}
 
 	/**
-	 * @param string
+	 * @param string|NULL
 	 * @return AlesWita\Components\WebLoader\Loader\ILoader
 	 */
-	public function setExpiration(string $expiration): AlesWita\Components\WebLoader\Loader\ILoader {
+	public function setExpiration(?string $expiration): AlesWita\Components\WebLoader\Loader\ILoader {
 		$this->expiration = $expiration;
 		return $this;
 	}
