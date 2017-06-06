@@ -1,0 +1,4 @@
+webloader:
+	files:
+		-
+			tag: js

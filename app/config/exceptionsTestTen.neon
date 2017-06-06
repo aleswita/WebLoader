@@ -1,0 +1,11 @@
+webloader:
+	files:
+		-
+			originalFile: %appDir%/../files/css.css
+			tag: css
+
+	folders:
+		-
+			originalFolder: %appDir%/../files
+			tag: other
+			folder: css
