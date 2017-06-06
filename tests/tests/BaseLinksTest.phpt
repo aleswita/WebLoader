@@ -34,12 +34,14 @@ final class BaseLinksTest extends Tester\TestCase
 	public function setUp(): void {
 		parent::setUp();
 
-		foreach (scandir(__DIR__) as $find) {
-			if (!in_array($find, [".", ".."], TRUE)) {
-				if (is_dir(__DIR__ . "/{$find}")) {
-					Nette\Utils\FileSystem::delete(__DIR__ . "/{$find}");
-				}
-			}
+		if (is_dir(__DIR__ . "/css")) {
+			Nette\Utils\FileSystem::delete(__DIR__ . "/css");
+		}
+		if (is_dir(__DIR__ . "/js")) {
+			Nette\Utils\FileSystem::delete(__DIR__ . "/js");
+		}
+		if (is_dir(__DIR__ . "/other")) {
+			Nette\Utils\FileSystem::delete(__DIR__ . "/other");
 		}
 
 		sleep(1);
