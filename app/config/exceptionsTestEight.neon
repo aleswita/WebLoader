@@ -1,4 +1,0 @@
-webloader:
-	folders:
-		-
-			originalFolder: %appDir%/../files
