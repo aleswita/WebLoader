@@ -325,9 +325,8 @@ class Factory
 		if ($this->debugMode) {
 			// invalidate cache, if some changes in container (only for debug mode, production no need)
 			if ($this->uniqueId !== $this->getCache()->load("uniqueId")) {
-				$this->getCache()->clean([Caching\Cache::TAGS => [$this->cacheTag]]);
+				$this->getCache()->clean([Caching\Cache::ALL => TRUE]);
 				$this->getCache()->save("uniqueId", function (& $dp): string {
-					$dp = [Caching\Cache::TAGS => [$this->cacheTag]];
 					return $this->uniqueId;
 				});
 			}
