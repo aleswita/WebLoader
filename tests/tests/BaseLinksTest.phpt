@@ -16,10 +16,6 @@ use Nette;
 use Tester;
 
 require_once __DIR__ . "/../bootstrap.php";
-require_once __DIR__ . "/../app/presenters/BaseLinksPresenter.php";
-require_once __DIR__ . "/../app/presenters/GettersPresenter.php";
-require_once __DIR__ . "/../app/presenters/DebugModePresenter.php";
-require_once __DIR__ . "/../app/router/Router.php";
 
 
 /**
@@ -70,6 +66,9 @@ final class BaseLinksTest extends Tester\TestCase
 
 		$source = (string) $response->getSource();
 		$dom = Tester\DomQuery::fromHtml($source);
+
+
+		// link tag
 		$data = $dom->find("link");
 
 		Tester\Assert::count(1, $data);
@@ -109,6 +108,9 @@ final class BaseLinksTest extends Tester\TestCase
 
 		$source = (string) $response->getSource();
 		$dom = Tester\DomQuery::fromHtml($source);
+
+
+		// script tag
 		$data = $dom->find("script");
 
 		Tester\Assert::count(1, $data);
