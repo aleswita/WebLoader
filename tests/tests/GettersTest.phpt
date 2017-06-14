@@ -54,28 +54,24 @@ final class GettersTest extends Tester\TestCase
 		$configurator->addConfig(__DIR__ . "/../app/config/gettersTestOne.neon");
 
 		$container = $configurator->createContainer();
-		$presenterFactory = $container->getByType("Nette\\Application\\IPresenterFactory");
-
-		$presenter = $presenterFactory->createPresenter("Getters");
-		$presenter->autoCanonicalize = FALSE;
-		$request = new Nette\Application\Request("Getters", "GET", ["action" => "one"]);
-		$response = $presenter->run($request);
-
-		Tester\Assert::true($response instanceof Nette\Application\Responses\TextResponse);
-		Tester\Assert::true($response->getSource() instanceof Nette\Application\UI\ITemplate);
-
-		Tester\Assert::same("1 WEEK", $presenter->webLoader->getExpiration());
-		Tester\Assert::same(__DIR__, $presenter->webLoader->getWwwDir());
-		Tester\Assert::false($presenter->webLoader->getDebugMode());
-		Tester\Assert::true($presenter->webLoader->getProductionMode());
-		Tester\Assert::same(13, strlen($presenter->webLoader->getUniqueId()));
-		Tester\Assert::true($presenter->webLoader->getCache() instanceof Nette\Caching\Cache);
-		Tester\Assert::same("foo", $presenter->webLoader->getCacheNamespace());
-		Tester\Assert::same("foo", $presenter->webLoader->getCacheTag());
-		Tester\Assert::true($presenter->webLoader->getHttpRequest() instanceof Nette\Http\IRequest);
 
 
-		$cssFiles = $presenter->webLoader->getCssFiles();
+		// check service
+		$service = $container->getService("webloader.webloader");
+
+		Tester\Assert::same("1 WEEK", $service->getExpiration());
+		Tester\Assert::same(__DIR__, $service->getWwwDir());
+		Tester\Assert::false($service->getDebugMode());
+		Tester\Assert::true($service->getProductionMode());
+		Tester\Assert::same(13, strlen($service->getUniqueId()));
+		Tester\Assert::true($service->getCache() instanceof Nette\Caching\Cache);
+		Tester\Assert::same("foo", $service->getCacheNamespace());
+		Tester\Assert::same("foo", $service->getCacheTag());
+		Tester\Assert::true($service->getHttpRequest() instanceof Nette\Http\IRequest);
+
+
+		// check css files
+		$cssFiles = $service->getCssFiles();
 
 		Tester\Assert::count(1, $cssFiles);
 		Tester\Assert::count(7, $cssFiles[0]);
@@ -88,7 +84,8 @@ final class GettersTest extends Tester\TestCase
 		Tester\Assert::true(array_key_exists("file", $cssFiles[0]));
 
 
-		$jsFiles = $presenter->webLoader->getJsFiles();
+		// check js files
+		$jsFiles = $service->getJsFiles();
 
 		Tester\Assert::count(1, $jsFiles);
 		Tester\Assert::count(7, $jsFiles[0]);
@@ -101,7 +98,8 @@ final class GettersTest extends Tester\TestCase
 		Tester\Assert::true(array_key_exists("file", $jsFiles[0]));
 
 
-		$otherFiles = $presenter->webLoader->getOtherFiles();
+		// check other files
+		$otherFiles = $service->getOtherFiles();
 
 		Tester\Assert::count(1, $otherFiles);
 		Tester\Assert::count(7, $otherFiles[0]);
@@ -114,8 +112,8 @@ final class GettersTest extends Tester\TestCase
 		Tester\Assert::true(array_key_exists("file", $otherFiles[0]));
 
 
-		Tester\Assert::true($presenter->webLoader->getCssLoader() instanceof AlesWita\Components\WebLoader\Loader\Css);
-		Tester\Assert::true($presenter->webLoader->getJsLoader() instanceof AlesWita\Components\WebLoader\Loader\Js);
+		Tester\Assert::true($service->getCssLoader() instanceof AlesWita\Components\WebLoader\Loader\Css);
+		Tester\Assert::true($service->getJsLoader() instanceof AlesWita\Components\WebLoader\Loader\Js);
 	}
 
 	/**
@@ -129,29 +127,24 @@ final class GettersTest extends Tester\TestCase
 		$configurator->addConfig(__DIR__ . "/../app/config/gettersTestTwo.neon");
 
 		$container = $configurator->createContainer();
-		$presenterFactory = $container->getByType("Nette\\Application\\IPresenterFactory");
 
-		$presenter = $presenterFactory->createPresenter("Getters");
-		$presenter->autoCanonicalize = FALSE;
-		$request = new Nette\Application\Request("Getters", "GET", ["action" => "one"]);
-		$response = $presenter->run($request);
 
-		Tester\Assert::true($response instanceof Nette\Application\Responses\TextResponse);
-		Tester\Assert::true($response->getSource() instanceof Nette\Application\UI\ITemplate);
+		// check service
+		$service = $container->getService("webloader.webloader");
 
-		Tester\Assert::same(NULL, $presenter->webLoader->getExpiration());
-		Tester\Assert::true($presenter->webLoader->getDebugMode());
-		Tester\Assert::false($presenter->webLoader->getProductionMode());
-		Tester\Assert::same(AlesWita\Components\WebLoader\Factory::CACHE_DEFAULT_NAMESPACE, $presenter->webLoader->getCacheNamespace());
-		Tester\Assert::same(AlesWita\Components\WebLoader\Factory::CACHE_DEFAULT_TAG, $presenter->webLoader->getCacheTag());
+		Tester\Assert::same(NULL, $service->getExpiration());
+		Tester\Assert::true($service->getDebugMode());
+		Tester\Assert::false($service->getProductionMode());
+		Tester\Assert::same(AlesWita\Components\WebLoader\Factory::CACHE_DEFAULT_NAMESPACE, $service->getCacheNamespace());
+		Tester\Assert::same(AlesWita\Components\WebLoader\Factory::CACHE_DEFAULT_TAG, $service->getCacheTag());
 
-		$cssFiles = $presenter->webLoader->getCssFiles();
+		$cssFiles = $service->getCssFiles();
 		Tester\Assert::count(0, $cssFiles);
 
-		$jsFiles = $presenter->webLoader->getJsFiles();
+		$jsFiles = $service->getJsFiles();
 		Tester\Assert::count(0, $jsFiles);
 
-		$otherFiles = $presenter->webLoader->getOtherFiles();
+		$otherFiles = $service->getOtherFiles();
 		Tester\Assert::count(0, $otherFiles);
 	}
 }

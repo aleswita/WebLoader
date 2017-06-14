@@ -9,9 +9,6 @@ services:
 	baseLinks.presenter:
 		class: AlesWita\Components\WebLoader\Tests\App\Presenters\BaseLinksPresenter
 
-	getters.presenter:
-		class: AlesWita\Components\WebLoader\Tests\App\Presenters\GettersPresenter
-
 	debugMode.presenter:
 		class: AlesWita\Components\WebLoader\Tests\App\Presenters\DebugModePresenter
 
