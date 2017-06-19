@@ -1,15 +1,18 @@
 extensions:
-	webloader: AlesWita\Components\WebLoader\Extension
+	webloader: AlesWita\WebLoader\Extension
 
 application:
 	mapping:
-		*: AlesWita\Components\WebLoader\Tests\App\Presenters\*Presenter
+		*: AlesWita\WebLoader\Tests\App\Presenters\*Presenter
 
 services:
 	baseLinks.presenter:
-		class: AlesWita\Components\WebLoader\Tests\App\Presenters\BaseLinksPresenter
+		class: AlesWita\WebLoader\Tests\App\Presenters\BaseLinksPresenter
+
+	getters.presenter:
+		class: AlesWita\WebLoader\Tests\App\Presenters\GettersPresenter
 
 	debugMode.presenter:
-		class: AlesWita\Components\WebLoader\Tests\App\Presenters\DebugModePresenter
+		class: AlesWita\WebLoader\Tests\App\Presenters\DebugModePresenter
 
-	routing.router: AlesWita\Components\WebLoader\Tests\App\Router\Router::createRouter
+	routing.router: AlesWita\WebLoader\Tests\App\Router\Router::createRouter

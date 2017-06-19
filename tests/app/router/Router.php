@@ -1,13 +1,13 @@
 <?php
 
 /**
- * This file is part of the AlesWita\Components\WebLoader
+ * This file is part of the AlesWita\WebLoader
  * Copyright (c) 2017 Ales Wita (aleswita+github@gmail.com)
  */
 
 declare(strict_types=1);
 
-namespace AlesWita\Components\WebLoader\Tests\App\Router;
+namespace AlesWita\WebLoader\Tests\App\Router;
 
 use Nette;
 

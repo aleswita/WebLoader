@@ -17,7 +17,7 @@ use Nette;
  * @author Ales Wita
  * @license MIT
  */
-final class BaseLinksPresenter extends Nette\Application\UI\Presenter
+final class GettersPresenter extends Nette\Application\UI\Presenter
 {
 	/** @var AlesWita\WebLoader\Factory @inject */
 	public $webLoader;
@@ -26,14 +26,7 @@ final class BaseLinksPresenter extends Nette\Application\UI\Presenter
 	 * @return void
 	 */
 	public function actionOne(): void {
-		$this->setView("cssLoader");
-	}
-
-	/**
-	 * @return void
-	 */
-	public function actionTwo(): void {
-		$this->setView("jsLoader");
+		$this->setView("default");
 	}
 
 	/**

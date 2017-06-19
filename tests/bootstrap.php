@@ -13,8 +13,10 @@ if (@!include __DIR__ . "/../vendor/autoload.php") {
 }
 
 require_once __DIR__ . "/app/presenters/BaseLinksPresenter.php";
+require_once __DIR__ . "/app/presenters/GettersPresenter.php";
 require_once __DIR__ . "/app/presenters/DebugModePresenter.php";
 require_once __DIR__ . "/app/router/Router.php";
+
 
 Tester\Environment::setup();
 

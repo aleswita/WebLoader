@@ -1,16 +1,16 @@
 <?php
 
 /**
- * This file is part of the AlesWita\Components\WebLoader
+ * This file is part of the AlesWita\WebLoader
  * Copyright (c) 2017 Ales Wita (aleswita+github@gmail.com)
  */
 
 declare(strict_types=1);
 
-namespace AlesWita\Components\WebLoader\Loader;
+namespace AlesWita\WebLoader\Loader;
 
 use AlesWita;
-use AlesWita\Components\WebLoader\Factory;
+use AlesWita\WebLoader\Factory;
 use Nette\Caching;
 use Nette\Utils;
 
@@ -23,9 +23,9 @@ class Css extends Loader
 {
 	/**
 	 * @param array
-	 * @return AlesWita\Components\WebLoader\Loader\ILoader
+	 * @return AlesWita\WebLoader\Loader\ILoader
 	 */
-	public function setFiles(array $files): AlesWita\Components\WebLoader\Loader\ILoader {
+	public function setFiles(array $files): AlesWita\WebLoader\Loader\ILoader {
 		$this->files = (isset($files[Factory::FILE_TAG_CSS]) ? $files[Factory::FILE_TAG_CSS] : []);
 		return $this;
 	}

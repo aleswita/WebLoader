@@ -1,13 +1,13 @@
 <?php
 
 /**
- * This file is part of the AlesWita\Components\WebLoader
+ * This file is part of the AlesWita\WebLoader
  * Copyright (c) 2017 Ales Wita (aleswita+github@gmail.com)
  */
 
 declare(strict_types=1);
 
-namespace AlesWita\Components\WebLoader;
+namespace AlesWita\WebLoader;
 
 use Nette;
 use Nette\Utils;
@@ -38,7 +38,7 @@ class Extension extends Nette\DI\CompilerExtension
 		$container = $this->getContainerBuilder();
 
 		$webLoader = $container->addDefinition($this->prefix("webloader"))
-			->setClass("AlesWita\\Components\\WebLoader\\Factory")
+			->setClass("AlesWita\\WebLoader\\Factory")
 			->addSetup("\$service->setWwwDir(?)", [$container->parameters["wwwDir"]])
 			->addSetup("\$service->setDebugMode(?)", [$container->parameters["debugMode"]])
 			->addSetup("\$service->setProductionMode(?)", [$container->parameters["productionMode"]])

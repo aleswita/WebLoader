@@ -11,7 +11,6 @@
 	],
 	"require": {
 		"php": "~7.1.0",
-		"nette/application": "~2.4.0 || ~3.0.0",
 		"nette/di": "~2.4.0 || ~3.0.0",
 		"nette/caching": "~2.5.0 || ~3.0.0",
 		"nette/http": "~2.4.0 || ~3.0.0",
@@ -19,6 +18,7 @@
 		"latte/latte": "~2.4.0 || ~3.0.0"
 	},
 	"require-dev": {
+		"nette/application": "~2.4.0 || ~3.0.0",
 		"nette/robot-loader": "~2.4.0 || ~3.0.0",
 		"nette/bootstrap": "~2.4.0 || ~3.0.0",
 		"tracy/tracy": "~2.4.0 || ~3.0.0",

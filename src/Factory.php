@@ -1,13 +1,13 @@
 <?php
 
 /**
- * This file is part of the AlesWita\Components\WebLoader
+ * This file is part of the AlesWita\WebLoader
  * Copyright (c) 2017 Ales Wita (aleswita+github@gmail.com)
  */
 
 declare(strict_types=1);
 
-namespace AlesWita\Components\WebLoader;
+namespace AlesWita\WebLoader;
 
 use AlesWita;
 use Nette;
@@ -276,9 +276,9 @@ class Factory
 
 	/**
 	 * @param string
-	 * @return AlesWita\Components\WebLoader\Css
+	 * @return AlesWita\WebLoader\Css
 	 */
-	public function getCssLoader(string $namespace = self::DEFAULT_NAMESPACE): AlesWita\Components\WebLoader\Loader\Css {
+	public function getCssLoader(string $namespace = self::DEFAULT_NAMESPACE): AlesWita\WebLoader\Loader\Css {
 		$cssLoader = new Loader\Css;
 
 		$cssLoader->setFiles($this->prepare($namespace))
@@ -292,9 +292,9 @@ class Factory
 
 	/**
 	 * @param string
-	 * @return AlesWita\Components\WebLoader\Js
+	 * @return AlesWita\WebLoader\Js
 	 */
-	public function getJsLoader(string $namespace = self::DEFAULT_NAMESPACE): AlesWita\Components\WebLoader\Loader\Js {
+	public function getJsLoader(string $namespace = self::DEFAULT_NAMESPACE): AlesWita\WebLoader\Loader\Js {
 		$jsLoader = new Loader\Js;
 
 		$jsLoader->setFiles($this->prepare($namespace))

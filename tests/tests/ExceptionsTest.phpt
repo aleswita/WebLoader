@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of the AlesWita\Components\WebLoader
+ * This file is part of the AlesWita\WebLoader
  * Copyright (c) 2017 Ales Wita (aleswita+github@gmail.com)
  *
  * @phpVersion 7.1.0
@@ -9,7 +9,7 @@
 
 declare(strict_types=1);
 
-namespace AlesWita\Components\WebLoader\Tests\Tests;
+namespace AlesWita\WebLoader\Tests\Tests;
 
 use AlesWita;
 use Nette;
@@ -45,7 +45,7 @@ final class ExceptionsTest extends Tester\TestCase
 	}
 
 	/**
-	 * @throws AlesWita\Components\WebLoader\WebLoaderException Missing parameter 'originalFile' in file configuration!
+	 * @throws AlesWita\WebLoader\WebLoaderException Missing parameter 'originalFile' in file configuration!
 	 * @return void
 	 */
 	public function testOne(): void {
@@ -58,7 +58,7 @@ final class ExceptionsTest extends Tester\TestCase
 	}
 
 	/**
-	 * @throws AlesWita\Components\WebLoader\WebLoaderException Missing parameter 'tag' in file configuration!
+	 * @throws AlesWita\WebLoader\WebLoaderException Missing parameter 'tag' in file configuration!
 	 * @return void
 	 */
 	public function testTwo(): void {
@@ -71,7 +71,7 @@ final class ExceptionsTest extends Tester\TestCase
 	}
 
 	/**
-	 * @throws AlesWita\Components\WebLoader\WebLoaderException Parameter 'namespace' must be array in file configuration!
+	 * @throws AlesWita\WebLoader\WebLoaderException Parameter 'namespace' must be array in file configuration!
 	 * @return void
 	 */
 	public function testThree(): void {
@@ -84,7 +84,7 @@ final class ExceptionsTest extends Tester\TestCase
 	}
 
 	/**
-	 * @throws AlesWita\Components\WebLoader\WebLoaderException
+	 * @throws AlesWita\WebLoader\WebLoaderException
 	 * @return void
 	 */
 	public function testFour(): void {
@@ -97,7 +97,7 @@ final class ExceptionsTest extends Tester\TestCase
 	}
 
 	/**
-	 * @throws AlesWita\Components\WebLoader\WebLoaderException Unknown file tag in configuration! Allowed tags: css, js, other
+	 * @throws AlesWita\WebLoader\WebLoaderException Unknown file tag in configuration! Allowed tags: css, js, other
 	 * @return void
 	 */
 	public function testFive(): void {
@@ -110,7 +110,7 @@ final class ExceptionsTest extends Tester\TestCase
 	}
 
 	/**
-	 * @throws AlesWita\Components\WebLoader\WebLoaderException Missing parameter 'folder' in file configuration! For tag 'other' this tag is required.
+	 * @throws AlesWita\WebLoader\WebLoaderException Missing parameter 'folder' in file configuration! For tag 'other' this tag is required.
 	 * @return void
 	 */
 	public function testSix(): void {
@@ -123,7 +123,7 @@ final class ExceptionsTest extends Tester\TestCase
 	}
 
 	/**
-	 * @throws AlesWita\Components\WebLoader\WebLoaderException Missing parameter 'originalFolder' in folder configuration!
+	 * @throws AlesWita\WebLoader\WebLoaderException Missing parameter 'originalFolder' in folder configuration!
 	 * @return void
 	 */
 	public function testSeven(): void {
@@ -136,7 +136,7 @@ final class ExceptionsTest extends Tester\TestCase
 	}
 
 	/**
-	 * @throws AlesWita\Components\WebLoader\WebLoaderException Missing parameter 'tag' in folder configuration!
+	 * @throws AlesWita\WebLoader\WebLoaderException Missing parameter 'tag' in folder configuration!
 	 * @return void
 	 */
 	public function testEight(): void {
@@ -149,7 +149,7 @@ final class ExceptionsTest extends Tester\TestCase
 	}
 
 	/**
-	 * @throws AlesWita\Components\WebLoader\WebLoaderException Parameter 'namespace' must be array in folder configuration!
+	 * @throws AlesWita\WebLoader\WebLoaderException Parameter 'namespace' must be array in folder configuration!
 	 * @return void
 	 */
 	public function testNine(): void {
@@ -162,7 +162,7 @@ final class ExceptionsTest extends Tester\TestCase
 	}
 
 	/**
-	 * @throws AlesWita\Components\WebLoader\WebLoaderException Folder 'css' already have file with name 'css.css'!
+	 * @throws AlesWita\WebLoader\WebLoaderException Folder 'css' already have file with name 'css.css'!
 	 * @return void
 	 */
 	public function testTen(): void {

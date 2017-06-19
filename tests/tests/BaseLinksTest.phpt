@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of the AlesWita\Components\WebLoader
+ * This file is part of the AlesWita\WebLoader
  * Copyright (c) 2017 Ales Wita (aleswita+github@gmail.com)
  *
  * @phpVersion 7.1.0
@@ -9,7 +9,7 @@
 
 declare(strict_types=1);
 
-namespace AlesWita\Components\WebLoader\Tests\Tests;
+namespace AlesWita\WebLoader\Tests\Tests;
 
 use AlesWita;
 use Nette;
@@ -66,9 +66,6 @@ final class BaseLinksTest extends Tester\TestCase
 
 		$source = (string) $response->getSource();
 		$dom = Tester\DomQuery::fromHtml($source);
-
-
-		// link tag
 		$data = $dom->find("link");
 
 		Tester\Assert::count(1, $data);
@@ -108,9 +105,6 @@ final class BaseLinksTest extends Tester\TestCase
 
 		$source = (string) $response->getSource();
 		$dom = Tester\DomQuery::fromHtml($source);
-
-
-		// script tag
 		$data = $dom->find("script");
 
 		Tester\Assert::count(1, $data);

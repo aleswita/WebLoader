@@ -1,5 +1,5 @@
 # Web Loader
-Web Loader for [Nette Framework](https://nette.org).
+Web Loader for Nette Framework.
 
 [![Build Status](https://travis-ci.org/aleswita/WebLoader.svg?branch=master)](https://travis-ci.org/aleswita/WebLoader)
 [![Coverage Status](https://coveralls.io/repos/github/aleswita/WebLoader/badge.svg?branch=master)](https://coveralls.io/github/aleswita/WebLoader?branch=master)
@@ -17,7 +17,7 @@ $ composer require aleswita/webloader:1.0
 #### Config
 ```neon
 extensions:
-	webloader: AlesWita\Components\WebLoader\Extension
+	webloader: AlesWita\WebLoader\Extension
 
 webloader:
 	expiration: 1 day # for regenerate links, sometimes helpful if some outdated browsers can not load new version of file
@@ -67,23 +67,20 @@ use Nette\Application;
 
 abstract class BasePresenter extends Application\UI\Presenter
 {
-	/** @var AlesWita\Components\WebLoader\Factory @inject */
-	public $webLoader;
-
 	...
 	...
 
 	/**
-	 * @return AlesWita\Components\WebLoader\Loader\Css
+	 * @return AlesWita\WebLoader\Loader\Css
 	 */
-	protected function createComponentCss(): AlesWita\Components\WebLoader\Loader\Css {
+	protected function createComponentCss(): AlesWita\WebLoader\Loader\Css {
 		return $this->webLoader->getCssLoader("Front");
 	}
 
 	/**
-	 * @return AlesWita\Components\WebLoader\Loader\Js
+	 * @return AlesWita\WebLoader\Loader\Js
 	 */
-	protected function createComponentJs(): AlesWita\Components\WebLoader\Loader\Js {
+	protected function createComponentJs(): AlesWita\WebLoader\Loader\Js {
 		return $this->webLoader->getJsLoader("Front");
 	}
 }
