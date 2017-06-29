@@ -1,7 +1,7 @@
 {
 	"name": "aleswita/webloader",
 	"description": "WebLoader for Nette Framework.",
-	"keywords": ["nette","webloader"],
+	"keywords": ["nette", "webloader"],
 	"license": ["MIT"],
 	"authors": [
 		{
