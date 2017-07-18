@@ -115,8 +115,17 @@ final class GettersTest extends Tester\TestCase
 		Tester\Assert::true(array_key_exists('file', $otherFiles[0]));
 
 
+		$htmlTags = $presenter->webLoader->getHtmlTags();
+
+		Tester\Assert::count(1, $htmlTags);
+		Tester\Assert::count(2, $htmlTags[0]);
+		Tester\Assert::true($htmlTags[0]['tag'] instanceof Nette\Utils\Html);
+		Tester\Assert::same('default', $otherFiles[0]['namespace'][0]);
+
+
 		Tester\Assert::true($presenter->webLoader->getCssLoader() instanceof AlesWita\WebLoader\Loader\Css);
 		Tester\Assert::true($presenter->webLoader->getJsLoader() instanceof AlesWita\WebLoader\Loader\Js);
+		Tester\Assert::true($presenter->webLoader->getTagLoader() instanceof AlesWita\WebLoader\Loader\Tag);
 	}
 
 
@@ -155,6 +164,9 @@ final class GettersTest extends Tester\TestCase
 
 		$otherFiles = $presenter->webLoader->getOtherFiles();
 		Tester\Assert::count(0, $otherFiles);
+
+		$htmlTags = $presenter->webLoader->getHtmlTags();
+		Tester\Assert::count(0, $htmlTags);
 	}
 }
 

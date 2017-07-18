@@ -16,3 +16,7 @@ webloader:
 			originalFolder: %appDir%/../files/folder
 			tag: other
 			folder: other
+
+	htmlTags:
+		-
+			tag: Nette\Utils\Html()::el('link', [rel: icon, type: image/png, href: /img/foo.png])
