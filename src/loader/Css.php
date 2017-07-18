@@ -26,7 +26,7 @@ class Css extends Loader
 	 */
 	public function setFiles(array $files): AlesWita\WebLoader\Loader\ILoader
 	{
-		$this->files = (isset($files[Factory::FILE_TAG_CSS]) ? $files[Factory::FILE_TAG_CSS] : []);
+		$this->files = (isset($files[Factory::TAG_FILE_CSS]) ? $files[Factory::TAG_FILE_CSS] : []);
 		return $this;
 	}
 
@@ -36,7 +36,7 @@ class Css extends Loader
 	 */
 	public function render(): void
 	{
-		echo $this->cache->load('namespace-' . $this->namespace . '-tag-' . Factory::FILE_TAG_CSS, function (&$dp): string {
+		echo $this->cache->load('namespace-' . $this->namespace . '-tag-' . Factory::TAG_FILE_CSS, function (&$dp): string {
 			$dp = [
 				Nette\Caching\Cache::TAGS => [$this->cacheTag],
 				Nette\Caching\Cache::EXPIRE => $this->expiration,

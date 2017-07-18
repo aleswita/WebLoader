@@ -27,6 +27,7 @@ class Extension extends Nette\DI\CompilerExtension
 		],
 		'files' => null,
 		'folders' => null,
+		'htmlTags' => null,
 	];
 
 
@@ -98,7 +99,7 @@ class Extension extends Nette\DI\CompilerExtension
 
 		if (is_array($config['files'])) {
 			$files = [];
-			$allowedTags = [Factory::FILE_TAG_CSS, Factory::FILE_TAG_JS, Factory::FILE_TAG_OTHER];
+			$allowedTags = [Factory::TAG_FILE_CSS, Factory::TAG_FILE_JS, Factory::TAG_FILE_OTHER];
 
 			foreach ($config['files'] as $fileSettings) {
 				if (!isset($fileSettings['originalFile'])) {
@@ -129,19 +130,19 @@ class Extension extends Nette\DI\CompilerExtension
 				$fileSettings['hash'] = md5_file($fileSettings['originalFile']);
 
 				switch ($fileSettings['tag']) {
-					case Factory::FILE_TAG_CSS:
+					case Factory::TAG_FILE_CSS:
 						$fileSettings['folder'] = (isset($fileSettings['folder']) ? $fileSettings['folder'] : Factory::DEFAULT_FOLDER_CSS);
 						$fileSettings['file'] = $container->parameters['wwwDir'] . '/' . $fileSettings['folder'] . '/' . $fileSettings['baseName'];
 						$webLoader->addSetup('$service->addCssFile(?)', [$fileSettings]);
 						break;
 
-					case Factory::FILE_TAG_JS:
+					case Factory::TAG_FILE_JS:
 						$fileSettings['folder'] = (isset($fileSettings['folder']) ? $fileSettings['folder'] : Factory::DEFAULT_FOLDER_JS);
 						$fileSettings['file'] = $container->parameters['wwwDir'] . '/' . $fileSettings['folder'] . '/' . $fileSettings['baseName'];
 						$webLoader->addSetup('$service->addJsFile(?)', [$fileSettings]);
 						break;
 
-					case Factory::FILE_TAG_OTHER:
+					case Factory::TAG_FILE_OTHER:
 						if (!isset($fileSettings['folder'])) {
 							throw new WebLoaderException('Missing parameter "folder" in file configuration! For tag "other" this tag is required.');
 						}
@@ -160,6 +161,19 @@ class Extension extends Nette\DI\CompilerExtension
 						$files[$fileSettings['folder']][] = $fileSettings['baseName'];
 					}
 				}
+			}
+		}
+
+		if (is_array($config['htmlTags'])) {
+			foreach ($config['htmlTags'] as $htmlTagSettings) {
+				if (!isset($htmlTagSettings['tag'])) {
+					throw new WebLoaderException('Missing parameter "tag" in HTML tag configuration!');
+				}
+				if (!isset($htmlTagSettings['namespace'])) {
+					$htmlTagSettings['namespace'] = (array) Factory::DEFAULT_NAMESPACE;
+				}
+
+				$webLoader->addSetup('$service->addHtmlTag(?)', [$htmlTagSettings]);
 			}
 		}
 	}

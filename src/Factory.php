@@ -20,9 +20,15 @@ use Nette;
 class Factory
 {
 	/** tags contants */
-	public const FILE_TAG_CSS = 'css';
-	public const FILE_TAG_JS = 'js';
-	public const FILE_TAG_OTHER = 'other';
+	public const TAG_FILE_CSS = 'css';
+	public const TAG_FILE_JS = 'js';
+	public const TAG_FILE_OTHER = 'other';
+	public const TAG_HTML = 'html';
+
+	/** back compatibility */
+	public const FILE_TAG_CSS = self::TAG_FILE_CSS;
+	public const FILE_TAG_JS = self::TAG_FILE_JS;
+	public const FILE_TAG_OTHER = self::TAG_FILE_OTHER;
 
 	/** folder constants */
 	public const DEFAULT_FOLDER_CSS = 'css';
@@ -72,6 +78,9 @@ class Factory
 
 	/** @var array */
 	private $otherFiles = [];
+
+	/** @var array */
+	private $htmlTags = [];
 
 
 	/**
@@ -202,6 +211,17 @@ class Factory
 	public function addOtherFile(array $fileSettings): self
 	{
 		$this->otherFiles[] = $fileSettings;
+		return $this;
+	}
+
+
+	/**
+	 * @param Nette\Utils\Html
+	 * @return self
+	 */
+	public function addHtmlTag(array $htmlTagSettings): self
+	{
+		$this->htmlTags[] = $htmlTagSettings;
 		return $this;
 	}
 
@@ -354,6 +374,24 @@ class Factory
 
 
 	/**
+	 * @param string
+	 * @return AlesWita\WebLoader\Tag
+	 */
+	public function getTagLoader(string $namespace = self::DEFAULT_NAMESPACE): AlesWita\WebLoader\Loader\Tag
+	{
+		$tagLoader = new Loader\Tag;
+
+		$tagLoader->setFiles($this->prepare($namespace))
+			->setNamespace($namespace)
+			->setCache($this->getCache())
+			->setCacheTag($this->cacheTag)
+			->setExpiration($this->expiration);
+
+		return $tagLoader;
+	}
+
+
+	/**
 	 * @return string
 	 */
 	private function getBasePath(): string
@@ -394,19 +432,39 @@ class Factory
 
 			foreach ($this->cssFiles as $file) {
 				if (in_array($namespace, $file['namespace'], true)) {
-					$output[self::FILE_TAG_CSS][] = $basePath . '/' . $file['folder'] . '/' . $file['baseName'];
+					$output[self::TAG_FILE_CSS][] = $basePath . '/' . $file['folder'] . '/' . $file['baseName'];
 				}
 			}
 
 			foreach ($this->jsFiles as $file) {
 				if (in_array($namespace, $file['namespace'], true)) {
-					$output[self::FILE_TAG_JS][] = $basePath . '/' . $file['folder'] . '/' . $file['baseName'];
+					$output[self::TAG_FILE_JS][] = $basePath . '/' . $file['folder'] . '/' . $file['baseName'];
 				}
 			}
 
 			foreach ($this->otherFiles as $file) {
 				if (in_array($namespace, $file['namespace'], true)) {
-					$output[self::FILE_TAG_OTHER][] = $basePath . '/' . $file['folder'] . '/' . $file['baseName'];
+					$output[self::TAG_FILE_OTHER][] = $basePath . '/' . $file['folder'] . '/' . $file['baseName'];
+				}
+			}
+
+			foreach ($this->htmlTags as $tag) {
+				if (in_array($namespace, $tag['namespace'], true)) {
+					if ($tag['tag']->getSrc() !== null) {
+						$src = Nette\Utils\Strings::trim($tag['tag']->getSrc(), '\\/');
+
+						if (!Nette\Utils\Validators::isUrl($src)) {
+                            $tag['tag']->setSrc($basePath . '/' . $src);
+						}
+					} elseif ($tag['tag']->getHref() !== null) {
+						$href = Nette\Utils\Strings::trim($tag['tag']->getHref(), '\\/');
+
+						if (!Nette\Utils\Validators::isUrl($href)) {
+                            $tag['tag']->setHref($basePath . '/' . $href);
+						}
+					}
+
+					$output[self::TAG_HTML][] = $tag['tag'];
 				}
 			}
 

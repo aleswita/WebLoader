@@ -18,7 +18,7 @@ use Nette;
  * @author Ales Wita
  * @license MIT
  */
-class Js extends Loader
+class Tag extends Loader
 {
 	/**
 	 * @param array
@@ -26,7 +26,7 @@ class Js extends Loader
 	 */
 	public function setFiles(array $files): AlesWita\WebLoader\Loader\ILoader
 	{
-		$this->files = (isset($files[Factory::TAG_FILE_JS]) ? $files[Factory::TAG_FILE_JS] : []);
+		$this->files = (isset($files[Factory::TAG_HTML]) ? $files[Factory::TAG_HTML] : []);
 		return $this;
 	}
 
@@ -36,7 +36,7 @@ class Js extends Loader
 	 */
 	public function render(): void
 	{
-		echo $this->cache->load('namespace-' . $this->namespace . '-tag-' . Factory::TAG_FILE_JS, function (&$dp): string {
+		echo $this->cache->load('namespace-' . $this->namespace . '-tag-' . Factory::TAG_HTML, function (&$dp): string {
 			$dp = [
 				Nette\Caching\Cache::TAGS => [$this->cacheTag],
 				Nette\Caching\Cache::EXPIRE => $this->expiration,
@@ -45,15 +45,11 @@ class Js extends Loader
 			$dateTime = new Nette\Utils\DateTime();
 			$main = Nette\Utils\Html::el();
 
-			foreach ($this->files as $file) {
-				$html = Nette\Utils\Html::el('script')
-					->setSrc($file . '?v=' . md5((string) $dateTime->getTimestamp()))
-					->setType('text/javascript');
-
-				$main->insert(null, $html);
+			foreach ($this->files as $tag) {
+				$main->insert(null, $tag);
 			}
 
-			return $main->render(0);
+			return $main->render(1);
 		});
 	}
 }
