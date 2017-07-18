@@ -42,6 +42,15 @@ final class BaseLinksPresenter extends Nette\Application\UI\Presenter
 
 
 	/**
+	 * @return void
+	 */
+	public function actionThree(): void
+	{
+		$this->setView('tagLoader');
+	}
+
+
+	/**
 	 * @return AlesWita\WebLoader\Loader\Css
 	 */
 	protected function createComponentCss(): AlesWita\WebLoader\Loader\Css
@@ -56,6 +65,15 @@ final class BaseLinksPresenter extends Nette\Application\UI\Presenter
 	protected function createComponentJs(): AlesWita\WebLoader\Loader\Js
 	{
 		return $this->webLoader->getJsLoader();
+	}
+
+
+	/**
+	 * @return AlesWita\WebLoader\Loader\Tag
+	 */
+	protected function createComponentTag(): AlesWita\WebLoader\Loader\Tag
+	{
+		return $this->webLoader->getTagLoader();
 	}
 
 

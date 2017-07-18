@@ -338,6 +338,15 @@ class Factory
 
 
 	/**
+	 * @return array
+	 */
+	public function getHtmlTags(): array
+	{
+		return $this->htmlTags;
+	}
+
+
+	/**
 	 * @param string
 	 * @return AlesWita\WebLoader\Css
 	 */
@@ -454,13 +463,13 @@ class Factory
 						$src = Nette\Utils\Strings::trim($tag['tag']->getSrc(), '\\/');
 
 						if (!Nette\Utils\Validators::isUrl($src)) {
-                            $tag['tag']->setSrc($basePath . '/' . $src);
+							$tag['tag']->setSrc($basePath . '/' . $src);
 						}
 					} elseif ($tag['tag']->getHref() !== null) {
 						$href = Nette\Utils\Strings::trim($tag['tag']->getHref(), '\\/');
 
 						if (!Nette\Utils\Validators::isUrl($href)) {
-                            $tag['tag']->setHref($basePath . '/' . $href);
+							$tag['tag']->setHref($basePath . '/' . $href);
 						}
 					}
 

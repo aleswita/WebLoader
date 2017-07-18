@@ -77,9 +77,11 @@ final class BaseLinksTest extends Tester\TestCase
 
 		$cssFiles = $presenter->webLoader->getCssFiles();
 		$jsFiles = $presenter->webLoader->getJsFiles();
+		$htmlTags = $presenter->webLoader->getHtmlTags();
 
 		Tester\Assert::count(1, $cssFiles);
 		Tester\Assert::count(0, $jsFiles);
+		Tester\Assert::count(0, $htmlTags);
 		Tester\Assert::true(file_exists($cssFiles[0]['file']));
 		Tester\Assert::same(md5_file($cssFiles[0]['file']), md5_file($cssFiles[0]['originalFile']));
 	}
@@ -116,11 +118,55 @@ final class BaseLinksTest extends Tester\TestCase
 
 		$cssFiles = $presenter->webLoader->getCssFiles();
 		$jsFiles = $presenter->webLoader->getJsFiles();
+		$htmlTags = $presenter->webLoader->getHtmlTags();
 
 		Tester\Assert::count(0, $cssFiles);
 		Tester\Assert::count(1, $jsFiles);
+		Tester\Assert::count(0, $htmlTags);
 		Tester\Assert::true(file_exists($jsFiles[0]['file']));
 		Tester\Assert::same(md5_file($jsFiles[0]['file']), md5_file($jsFiles[0]['originalFile']));
+	}
+
+
+	/**
+	 * @return void
+	 */
+	public function testThree(): void {
+		$configurator = new Nette\Configurator();
+		$configurator->setTempDirectory(TEMP_DIR);
+		$configurator->addConfig(__DIR__ . '/../app/config/config.neon');
+		$configurator->addConfig(__DIR__ . '/../app/config/baseLinksTestThree.neon');
+
+		$container = $configurator->createContainer();
+		$presenterFactory = $container->getByType('Nette\\Application\\IPresenterFactory');
+
+		$presenter = $presenterFactory->createPresenter('BaseLinks');
+		$presenter->autoCanonicalize = FALSE;
+		$request = new Nette\Application\Request('BaseLinks', 'GET', ['action' => 'three']);
+		$response = $presenter->run($request);
+
+		Tester\Assert::true($response instanceof Nette\Application\Responses\TextResponse);
+		Tester\Assert::true($response->getSource() instanceof Nette\Application\UI\ITemplate);
+
+		$source = (string) $response->getSource();
+		$dom = Tester\DomQuery::fromHtml($source);
+		$data = $dom->find('link');
+
+		Tester\Assert::count(1, $data);
+		Tester\Assert::same('icon', (string) $data[0]['rel']);
+		Tester\Assert::same('http:/img/foo.png', (string) $data[0]['href']);
+		Tester\Assert::same('image/png', (string) $data[0]['type']);
+
+
+		$cssFiles = $presenter->webLoader->getCssFiles();
+		$jsFiles = $presenter->webLoader->getJsFiles();
+		$htmlTags = $presenter->webLoader->getHtmlTags();
+
+		Tester\Assert::count(0, $cssFiles);
+		Tester\Assert::count(0, $jsFiles);
+		Tester\Assert::count(1, $htmlTags);
+		Tester\Assert::true(file_exists($cssFiles[0]['file']));
+		Tester\Assert::same(md5_file($cssFiles[0]['file']), md5_file($cssFiles[0]['originalFile']));
 	}
 }
 
