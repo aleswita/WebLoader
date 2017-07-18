@@ -51,6 +51,15 @@ final class BaseLinksPresenter extends Nette\Application\UI\Presenter
 
 
 	/**
+	 * @return void
+	 */
+	public function actionFour(): void
+	{
+		$this->setView('tagLoader');
+	}
+
+
+	/**
 	 * @return AlesWita\WebLoader\Loader\Css
 	 */
 	protected function createComponentCss(): AlesWita\WebLoader\Loader\Css

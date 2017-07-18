@@ -183,6 +183,20 @@ final class ExceptionsTest extends Tester\TestCase
 
 		$configurator->createContainer();
 	}
+
+
+	/**
+	 * @throws AlesWita\WebLoader\WebLoaderException Missing parameter "tag" in HTML tag configuration!
+	 * @return void
+	 */
+	public function testEleven(): void {
+		$configurator = new Nette\Configurator();
+		$configurator->setTempDirectory(TEMP_DIR);
+		$configurator->addConfig(__DIR__ . '/../app/config/config.neon');
+		$configurator->addConfig(__DIR__ . '/../app/config/exceptionsTestEleven.neon');
+
+		$configurator->createContainer();
+	}
 }
 
 

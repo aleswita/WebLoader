@@ -1,0 +1,4 @@
+webloader:
+	htmlTags:
+		-
+			tag: Nette\Utils\Html()::el('script', [type: text/javascript, src: http://example.com/js/foo.js])

@@ -2,5 +2,3 @@ webloader:
 	htmlTags:
 		-
 			tag: Nette\Utils\Html()::el('link', [rel: icon, type: image/png, href: /img/foo.png])
-			namespace: [default]
-

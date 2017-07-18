@@ -165,8 +165,45 @@ final class BaseLinksTest extends Tester\TestCase
 		Tester\Assert::count(0, $cssFiles);
 		Tester\Assert::count(0, $jsFiles);
 		Tester\Assert::count(1, $htmlTags);
-		Tester\Assert::true(file_exists($cssFiles[0]['file']));
-		Tester\Assert::same(md5_file($cssFiles[0]['file']), md5_file($cssFiles[0]['originalFile']));
+	}
+
+
+	/**
+	 * @return void
+	 */
+	public function testFour(): void {
+		$configurator = new Nette\Configurator();
+		$configurator->setTempDirectory(TEMP_DIR);
+		$configurator->addConfig(__DIR__ . '/../app/config/config.neon');
+		$configurator->addConfig(__DIR__ . '/../app/config/baseLinksTestFour.neon');
+
+		$container = $configurator->createContainer();
+		$presenterFactory = $container->getByType('Nette\\Application\\IPresenterFactory');
+
+		$presenter = $presenterFactory->createPresenter('BaseLinks');
+		$presenter->autoCanonicalize = FALSE;
+		$request = new Nette\Application\Request('BaseLinks', 'GET', ['action' => 'four']);
+		$response = $presenter->run($request);
+
+		Tester\Assert::true($response instanceof Nette\Application\Responses\TextResponse);
+		Tester\Assert::true($response->getSource() instanceof Nette\Application\UI\ITemplate);
+
+		$source = (string) $response->getSource();
+		$dom = Tester\DomQuery::fromHtml($source);
+		$data = $dom->find('script');
+
+		Tester\Assert::count(1, $data);
+		Tester\Assert::same('http://example.com/js/foo.js', (string) $data[0]['src']);
+		Tester\Assert::same('text/javascript', (string) $data[0]['type']);
+
+
+		$cssFiles = $presenter->webLoader->getCssFiles();
+		$jsFiles = $presenter->webLoader->getJsFiles();
+		$htmlTags = $presenter->webLoader->getHtmlTags();
+
+		Tester\Assert::count(0, $cssFiles);
+		Tester\Assert::count(0, $jsFiles);
+		Tester\Assert::count(1, $htmlTags);
 	}
 }
 
