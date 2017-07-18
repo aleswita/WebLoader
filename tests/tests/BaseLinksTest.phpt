@@ -15,7 +15,7 @@ use AlesWita;
 use Nette;
 use Tester;
 
-require_once __DIR__ . "/../bootstrap.php";
+require_once __DIR__ . '/../bootstrap.php';
 
 
 /**
@@ -30,19 +30,20 @@ final class BaseLinksTest extends Tester\TestCase
 	public function setUp(): void {
 		parent::setUp();
 
-		if (is_dir(__DIR__ . "/css")) {
-			Nette\Utils\FileSystem::delete(__DIR__ . "/css");
+		if (is_dir(__DIR__ . '/css')) {
+			Nette\Utils\FileSystem::delete(__DIR__ . '/css');
 		}
-		if (is_dir(__DIR__ . "/js")) {
-			Nette\Utils\FileSystem::delete(__DIR__ . "/js");
+		if (is_dir(__DIR__ . '/js')) {
+			Nette\Utils\FileSystem::delete(__DIR__ . '/js');
 		}
-		if (is_dir(__DIR__ . "/other")) {
-			Nette\Utils\FileSystem::delete(__DIR__ . "/other");
+		if (is_dir(__DIR__ . '/other')) {
+			Nette\Utils\FileSystem::delete(__DIR__ . '/other');
 		}
 
 		sleep(1);
 		clearstatcache();
 	}
+
 
 	/**
 	 * @return void
@@ -50,15 +51,15 @@ final class BaseLinksTest extends Tester\TestCase
 	public function testOne(): void {
 		$configurator = new Nette\Configurator();
 		$configurator->setTempDirectory(TEMP_DIR);
-		$configurator->addConfig(__DIR__ . "/../app/config/config.neon");
-		$configurator->addConfig(__DIR__ . "/../app/config/baseLinksTestOne.neon");
+		$configurator->addConfig(__DIR__ . '/../app/config/config.neon');
+		$configurator->addConfig(__DIR__ . '/../app/config/baseLinksTestOne.neon');
 
 		$container = $configurator->createContainer();
-		$presenterFactory = $container->getByType("Nette\\Application\\IPresenterFactory");
+		$presenterFactory = $container->getByType('Nette\\Application\\IPresenterFactory');
 
-		$presenter = $presenterFactory->createPresenter("BaseLinks");
+		$presenter = $presenterFactory->createPresenter('BaseLinks');
 		$presenter->autoCanonicalize = FALSE;
-		$request = new Nette\Application\Request("BaseLinks", "GET", ["action" => "one"]);
+		$request = new Nette\Application\Request('BaseLinks', 'GET', ['action' => 'one']);
 		$response = $presenter->run($request);
 
 		Tester\Assert::true($response instanceof Nette\Application\Responses\TextResponse);
@@ -66,12 +67,12 @@ final class BaseLinksTest extends Tester\TestCase
 
 		$source = (string) $response->getSource();
 		$dom = Tester\DomQuery::fromHtml($source);
-		$data = $dom->find("link");
+		$data = $dom->find('link');
 
 		Tester\Assert::count(1, $data);
-		Tester\Assert::same("stylesheet", (string) $data[0]["rel"]);
-		Tester\Assert::contains("http:/css/css.css?v=", (string) $data[0]["href"]);
-		Tester\Assert::same("text/css", (string) $data[0]["type"]);
+		Tester\Assert::same('stylesheet', (string) $data[0]['rel']);
+		Tester\Assert::contains('http:/css/css.css?v=', (string) $data[0]['href']);
+		Tester\Assert::same('text/css', (string) $data[0]['type']);
 
 
 		$cssFiles = $presenter->webLoader->getCssFiles();
@@ -79,9 +80,10 @@ final class BaseLinksTest extends Tester\TestCase
 
 		Tester\Assert::count(1, $cssFiles);
 		Tester\Assert::count(0, $jsFiles);
-		Tester\Assert::true(file_exists($cssFiles[0]["file"]));
-		Tester\Assert::same(md5_file($cssFiles[0]["file"]), md5_file($cssFiles[0]["originalFile"]));
+		Tester\Assert::true(file_exists($cssFiles[0]['file']));
+		Tester\Assert::same(md5_file($cssFiles[0]['file']), md5_file($cssFiles[0]['originalFile']));
 	}
+
 
 	/**
 	 * @return void
@@ -89,15 +91,15 @@ final class BaseLinksTest extends Tester\TestCase
 	public function testTwo(): void {
 		$configurator = new Nette\Configurator();
 		$configurator->setTempDirectory(TEMP_DIR);
-		$configurator->addConfig(__DIR__ . "/../app/config/config.neon");
-		$configurator->addConfig(__DIR__ . "/../app/config/baseLinksTestTwo.neon");
+		$configurator->addConfig(__DIR__ . '/../app/config/config.neon');
+		$configurator->addConfig(__DIR__ . '/../app/config/baseLinksTestTwo.neon');
 
 		$container = $configurator->createContainer();
-		$presenterFactory = $container->getByType("Nette\\Application\\IPresenterFactory");
+		$presenterFactory = $container->getByType('Nette\\Application\\IPresenterFactory');
 
-		$presenter = $presenterFactory->createPresenter("BaseLinks");
+		$presenter = $presenterFactory->createPresenter('BaseLinks');
 		$presenter->autoCanonicalize = FALSE;
-		$request = new Nette\Application\Request("BaseLinks", "GET", ["action" => "two"]);
+		$request = new Nette\Application\Request('BaseLinks', 'GET', ['action' => 'two']);
 		$response = $presenter->run($request);
 
 		Tester\Assert::true($response instanceof Nette\Application\Responses\TextResponse);
@@ -105,11 +107,11 @@ final class BaseLinksTest extends Tester\TestCase
 
 		$source = (string) $response->getSource();
 		$dom = Tester\DomQuery::fromHtml($source);
-		$data = $dom->find("script");
+		$data = $dom->find('script');
 
 		Tester\Assert::count(1, $data);
-		Tester\Assert::contains("http:/js/js.js?v=", (string) $data[0]["src"]);
-		Tester\Assert::same("text/javascript", (string) $data[0]["type"]);
+		Tester\Assert::contains('http:/js/js.js?v=', (string) $data[0]['src']);
+		Tester\Assert::same('text/javascript', (string) $data[0]['type']);
 
 
 		$cssFiles = $presenter->webLoader->getCssFiles();
@@ -117,8 +119,8 @@ final class BaseLinksTest extends Tester\TestCase
 
 		Tester\Assert::count(0, $cssFiles);
 		Tester\Assert::count(1, $jsFiles);
-		Tester\Assert::true(file_exists($jsFiles[0]["file"]));
-		Tester\Assert::same(md5_file($jsFiles[0]["file"]), md5_file($jsFiles[0]["originalFile"]));
+		Tester\Assert::true(file_exists($jsFiles[0]['file']));
+		Tester\Assert::same(md5_file($jsFiles[0]['file']), md5_file($jsFiles[0]['originalFile']));
 	}
 }
 

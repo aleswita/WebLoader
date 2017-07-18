@@ -15,7 +15,7 @@ use AlesWita;
 use Nette;
 use Tester;
 
-require_once __DIR__ . "/../bootstrap.php";
+require_once __DIR__ . '/../bootstrap.php';
 
 
 /**
@@ -30,19 +30,20 @@ final class DebugModeTest extends Tester\TestCase
 	public function setUp(): void {
 		parent::setUp();
 
-		if (is_dir(__DIR__ . "/css")) {
-			Nette\Utils\FileSystem::delete(__DIR__ . "/css");
+		if (is_dir(__DIR__ . '/css')) {
+			Nette\Utils\FileSystem::delete(__DIR__ . '/css');
 		}
-		if (is_dir(__DIR__ . "/js")) {
-			Nette\Utils\FileSystem::delete(__DIR__ . "/js");
+		if (is_dir(__DIR__ . '/js')) {
+			Nette\Utils\FileSystem::delete(__DIR__ . '/js');
 		}
-		if (is_dir(__DIR__ . "/other")) {
-			Nette\Utils\FileSystem::delete(__DIR__ . "/other");
+		if (is_dir(__DIR__ . '/other')) {
+			Nette\Utils\FileSystem::delete(__DIR__ . '/other');
 		}
 
 		sleep(1);
 		clearstatcache();
 	}
+
 
 	/**
 	 * @return void
@@ -51,15 +52,15 @@ final class DebugModeTest extends Tester\TestCase
 		$configurator = new Nette\Configurator();
 		$configurator->setDebugMode(TRUE);
 		$configurator->setTempDirectory(TEMP_DIR);
-		$configurator->addConfig(__DIR__ . "/../app/config/config.neon");
-		$configurator->addConfig(__DIR__ . "/../app/config/debugModeTestOne.neon");
+		$configurator->addConfig(__DIR__ . '/../app/config/config.neon');
+		$configurator->addConfig(__DIR__ . '/../app/config/debugModeTestOne.neon');
 
 		$container = $configurator->createContainer();
-		$presenterFactory = $container->getByType("Nette\\Application\\IPresenterFactory");
+		$presenterFactory = $container->getByType('Nette\\Application\\IPresenterFactory');
 
-		$presenter = $presenterFactory->createPresenter("DebugMode");
+		$presenter = $presenterFactory->createPresenter('DebugMode');
 		$presenter->autoCanonicalize = FALSE;
-		$request = new Nette\Application\Request("DebugMode", "GET", ["action" => "one"]);
+		$request = new Nette\Application\Request('DebugMode', 'GET', ['action' => 'one']);
 		$response = $presenter->run($request);
 
 		Tester\Assert::true($response instanceof Nette\Application\Responses\TextResponse);
@@ -68,7 +69,7 @@ final class DebugModeTest extends Tester\TestCase
 		$source = (string) $response->getSource();
 		$cache = $presenter->webLoader->getCache();
 
-		Tester\Assert::same($presenter->webLoader->getUniqueId(), $cache->load("uniqueId"));
+		Tester\Assert::same($presenter->webLoader->getUniqueId(), $cache->load('uniqueId'));
 	}
 }
 

@@ -22,39 +22,49 @@ final class BaseLinksPresenter extends Nette\Application\UI\Presenter
 	/** @var AlesWita\WebLoader\Factory @inject */
 	public $webLoader;
 
-	/**
-	 * @return void
-	 */
-	public function actionOne(): void {
-		$this->setView("cssLoader");
-	}
 
 	/**
 	 * @return void
 	 */
-	public function actionTwo(): void {
-		$this->setView("jsLoader");
+	public function actionOne(): void
+	{
+		$this->setView('cssLoader');
 	}
+
+
+	/**
+	 * @return void
+	 */
+	public function actionTwo(): void
+	{
+		$this->setView('jsLoader');
+	}
+
 
 	/**
 	 * @return AlesWita\WebLoader\Loader\Css
 	 */
-	protected function createComponentCss(): AlesWita\WebLoader\Loader\Css {
+	protected function createComponentCss(): AlesWita\WebLoader\Loader\Css
+	{
 		return $this->webLoader->getCssLoader();
 	}
+
 
 	/**
 	 * @return AlesWita\WebLoader\Loader\Js
 	 */
-	protected function createComponentJs(): AlesWita\WebLoader\Loader\Js {
+	protected function createComponentJs(): AlesWita\WebLoader\Loader\Js
+	{
 		return $this->webLoader->getJsLoader();
 	}
+
 
 	/**
 	 * @param Nette\Application\IResponse
 	 * @return void
 	 */
-	protected function shutdown($response): void {
+	protected function shutdown($response): void
+	{
 		parent::shutdown($response);
 		$this->webLoader->getCache()->clean([Nette\Caching\Cache::TAGS => [$this->webLoader->getCacheTag()]]);
 	}

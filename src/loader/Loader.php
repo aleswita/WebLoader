@@ -11,15 +11,13 @@ namespace AlesWita\WebLoader\Loader;
 
 use AlesWita;
 use Nette;
-use Nette\Application;
-use Nette\Utils;
 
 
 /**
  * @author Ales Wita
  * @license MIT
  */
-abstract class Loader extends Application\UI\Control implements ILoader
+abstract class Loader extends Nette\Application\UI\Control implements ILoader
 {
 	/** @var array */
 	protected $files = [];
@@ -36,49 +34,54 @@ abstract class Loader extends Application\UI\Control implements ILoader
 	/** @var string */
 	protected $expiration;
 
-	/** ******************** */
 
 	/**
 	 * @param array
 	 * @return AlesWita\WebLoader\Loader\ILoader
 	 */
-	abstract function setFiles(array $files): AlesWita\WebLoader\Loader\ILoader;
+	abstract public function setFiles(array $files): AlesWita\WebLoader\Loader\ILoader;
+
 
 	/**
 	 * @param string
 	 * @return AlesWita\WebLoader\Loader\ILoader
 	 */
-	public function setNamespace(string $namespace): AlesWita\WebLoader\Loader\ILoader {
+	public function setNamespace(string $namespace): AlesWita\WebLoader\Loader\ILoader
+	{
 		$this->namespace = $namespace;
 		return $this;
 	}
+
 
 	/**
 	 * @param Nette\Caching\Cache
 	 * @return AlesWita\WebLoader\Loader\ILoader
 	 */
-	public function setCache(Nette\Caching\Cache $cache): AlesWita\WebLoader\Loader\ILoader {
+	public function setCache(Nette\Caching\Cache $cache): AlesWita\WebLoader\Loader\ILoader
+	{
 		$this->cache = $cache;
 		return $this;
 	}
+
 
 	/**
 	 * @param string
 	 * @return AlesWita\WebLoader\Loader\ILoader
 	 */
-	public function setCacheTag(string $tag): AlesWita\WebLoader\Loader\ILoader {
+	public function setCacheTag(string $tag): AlesWita\WebLoader\Loader\ILoader
+	{
 		$this->cacheTag = $tag;
 		return $this;
 	}
+
 
 	/**
 	 * @param string|NULL
 	 * @return AlesWita\WebLoader\Loader\ILoader
 	 */
-	public function setExpiration(?string $expiration): AlesWita\WebLoader\Loader\ILoader {
+	public function setExpiration(?string $expiration): AlesWita\WebLoader\Loader\ILoader
+	{
 		$this->expiration = $expiration;
 		return $this;
 	}
-
-	/** ******************** */
 }
