@@ -50,12 +50,18 @@ webloader:
 			originalFile: %appDir%/../node_modules/nette-forms/src/assets/netteForms.min.js
 			tag: js
 			namespace: [Front, Admin]
+
 	folders:
 		-
 			originalFolder: %appDir%/../node_modules/font-awesome/fonts
 			tag: other
 			namespace: [Front]
 			folder: fonts
+
+	htmlTags:
+		-
+			tag: Nette\Utils\Html()::el('link', [rel: icon, type: image/png, href: /img/favicon.png])
+			namespace: [Front]
 ```
 
 
@@ -83,6 +89,13 @@ abstract class BasePresenter extends Application\UI\Presenter
 	protected function createComponentJs(): AlesWita\WebLoader\Loader\Js {
 		return $this->webLoader->getJsLoader("Front");
 	}
+
+	/**
+	 * @return AlesWita\WebLoader\Loader\Tag
+	 */
+	protected function createComponentTag(): AlesWita\WebLoader\Loader\Tag {
+		return $this->webLoader->getTagLoader("Front");
+	}
 }
 ```
 
@@ -94,6 +107,7 @@ abstract class BasePresenter extends Application\UI\Presenter
   <meta charset="UTF-8">
   {control css}
   {control js}
+  {control tag}
  </head>
  ...
  ...
