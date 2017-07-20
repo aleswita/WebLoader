@@ -1,5 +1,4 @@
 webloader:
 	htmlTags:
-		# ========== HTML tags ==========
 		-
 			foo: Nette\Utils\Html()::el()
