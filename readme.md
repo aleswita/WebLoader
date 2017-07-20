@@ -73,6 +73,9 @@ use Nette\Application;
 
 abstract class BasePresenter extends Application\UI\Presenter
 {
+	/** @var AlesWita\WebLoader\Factory @inject */
+	public $webLoader;
+
 	...
 	...
 
