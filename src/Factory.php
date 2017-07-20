@@ -459,17 +459,19 @@ class Factory
 
 			foreach ($this->htmlTags as $tag) {
 				if (in_array($namespace, $tag['namespace'], true)) {
-					if ($tag['tag']->getSrc() !== null) {
-						$src = Nette\Utils\Strings::trim($tag['tag']->getSrc(), '\\/');
+					if ($tag['tag'] instanceof Nette\Utils\Html) {
+						if ($tag['tag']->getSrc() !== null) {
+							$src = Nette\Utils\Strings::trim($tag['tag']->getSrc(), '\\/');
 
-						if (!Nette\Utils\Validators::isUrl($src)) {
-							$tag['tag']->setSrc($basePath . '/' . $src);
-						}
-					} elseif ($tag['tag']->getHref() !== null) {
-						$href = Nette\Utils\Strings::trim($tag['tag']->getHref(), '\\/');
+							if (!Nette\Utils\Validators::isUrl($src)) {
+								$tag['tag']->setSrc($basePath . '/' . $src);
+							}
+						} elseif ($tag['tag']->getHref() !== null) {
+							$href = Nette\Utils\Strings::trim($tag['tag']->getHref(), '\\/');
 
-						if (!Nette\Utils\Validators::isUrl($href)) {
-							$tag['tag']->setHref($basePath . '/' . $href);
+							if (!Nette\Utils\Validators::isUrl($href)) {
+								$tag['tag']->setHref($basePath . '/' . $href);
+							}
 						}
 					}
 

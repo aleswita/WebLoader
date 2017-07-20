@@ -197,6 +197,20 @@ final class ExceptionsTest extends Tester\TestCase
 
 		$configurator->createContainer();
 	}
+
+
+	/**
+	 * @throws AlesWita\WebLoader\WebLoaderException Parameter "namespace" must be array in HTML tags configuration!
+	 * @return void
+	 */
+	public function testTwelve(): void {
+		$configurator = new Nette\Configurator();
+		$configurator->setTempDirectory(TEMP_DIR);
+		$configurator->addConfig(__DIR__ . '/../app/config/config.neon');
+		$configurator->addConfig(__DIR__ . '/../app/config/exceptionsTestTwelve.neon');
+
+		$configurator->createContainer();
+	}
 }
 
 

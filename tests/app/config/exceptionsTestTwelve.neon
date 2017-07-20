@@ -1,0 +1,6 @@
+webloader:
+	htmlTags:
+		# ========== HTML tags ==========
+		-
+			tag: Nette\Utils\Html()::el()
+			namespace: foo

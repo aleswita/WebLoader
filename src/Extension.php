@@ -172,6 +172,9 @@ class Extension extends Nette\DI\CompilerExtension
 				if (!isset($htmlTagSettings['namespace'])) {
 					$htmlTagSettings['namespace'] = (array) Factory::DEFAULT_NAMESPACE;
 				}
+				if (!is_array($htmlTagSettings['namespace'])) {
+					throw new WebLoaderException('Parameter "namespace" must be array in HTML tags configuration!');
+				}
 
 				$webLoader->addSetup('$service->addHtmlTag(?)', [$htmlTagSettings]);
 			}
