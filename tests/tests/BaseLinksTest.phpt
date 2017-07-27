@@ -27,7 +27,8 @@ final class BaseLinksTest extends Tester\TestCase
 	/**
 	 * @return void
 	 */
-	public function setUp(): void {
+	public function setUp(): void
+	{
 		parent::setUp();
 
 		if (is_dir(__DIR__ . '/css')) {
@@ -48,7 +49,8 @@ final class BaseLinksTest extends Tester\TestCase
 	/**
 	 * @return void
 	 */
-	public function testOne(): void {
+	public function testOne(): void
+	{
 		$configurator = new Nette\Configurator();
 		$configurator->setTempDirectory(TEMP_DIR);
 		$configurator->addConfig(__DIR__ . '/../app/config/config.neon');
@@ -58,7 +60,7 @@ final class BaseLinksTest extends Tester\TestCase
 		$presenterFactory = $container->getByType('Nette\\Application\\IPresenterFactory');
 
 		$presenter = $presenterFactory->createPresenter('BaseLinks');
-		$presenter->autoCanonicalize = FALSE;
+		$presenter->autoCanonicalize = false;
 		$request = new Nette\Application\Request('BaseLinks', 'GET', ['action' => 'one']);
 		$response = $presenter->run($request);
 
@@ -90,7 +92,8 @@ final class BaseLinksTest extends Tester\TestCase
 	/**
 	 * @return void
 	 */
-	public function testTwo(): void {
+	public function testTwo(): void
+	{
 		$configurator = new Nette\Configurator();
 		$configurator->setTempDirectory(TEMP_DIR);
 		$configurator->addConfig(__DIR__ . '/../app/config/config.neon');
@@ -100,7 +103,7 @@ final class BaseLinksTest extends Tester\TestCase
 		$presenterFactory = $container->getByType('Nette\\Application\\IPresenterFactory');
 
 		$presenter = $presenterFactory->createPresenter('BaseLinks');
-		$presenter->autoCanonicalize = FALSE;
+		$presenter->autoCanonicalize = false;
 		$request = new Nette\Application\Request('BaseLinks', 'GET', ['action' => 'two']);
 		$response = $presenter->run($request);
 
@@ -131,7 +134,8 @@ final class BaseLinksTest extends Tester\TestCase
 	/**
 	 * @return void
 	 */
-	public function testThree(): void {
+	public function testThree(): void
+	{
 		$configurator = new Nette\Configurator();
 		$configurator->setTempDirectory(TEMP_DIR);
 		$configurator->addConfig(__DIR__ . '/../app/config/config.neon');
@@ -141,7 +145,7 @@ final class BaseLinksTest extends Tester\TestCase
 		$presenterFactory = $container->getByType('Nette\\Application\\IPresenterFactory');
 
 		$presenter = $presenterFactory->createPresenter('BaseLinks');
-		$presenter->autoCanonicalize = FALSE;
+		$presenter->autoCanonicalize = false;
 		$request = new Nette\Application\Request('BaseLinks', 'GET', ['action' => 'three']);
 		$response = $presenter->run($request);
 
@@ -171,7 +175,8 @@ final class BaseLinksTest extends Tester\TestCase
 	/**
 	 * @return void
 	 */
-	public function testFour(): void {
+	public function testFour(): void
+	{
 		$configurator = new Nette\Configurator();
 		$configurator->setTempDirectory(TEMP_DIR);
 		$configurator->addConfig(__DIR__ . '/../app/config/config.neon');
@@ -181,7 +186,7 @@ final class BaseLinksTest extends Tester\TestCase
 		$presenterFactory = $container->getByType('Nette\\Application\\IPresenterFactory');
 
 		$presenter = $presenterFactory->createPresenter('BaseLinks');
-		$presenter->autoCanonicalize = FALSE;
+		$presenter->autoCanonicalize = false;
 		$request = new Nette\Application\Request('BaseLinks', 'GET', ['action' => 'four']);
 		$response = $presenter->run($request);
 

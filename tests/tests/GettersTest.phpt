@@ -27,7 +27,8 @@ final class GettersTest extends Tester\TestCase
 	/**
 	 * @return void
 	 */
-	public function setUp(): void {
+	public function setUp(): void
+	{
 		parent::setUp();
 
 		if (is_dir(__DIR__ . '/css')) {
@@ -48,7 +49,8 @@ final class GettersTest extends Tester\TestCase
 	/**
 	 * @return void
 	 */
-	public function testOne(): void {
+	public function testOne(): void
+	{
 		$configurator = new Nette\Configurator();
 		$configurator->setTempDirectory(TEMP_DIR);
 		$configurator->addConfig(__DIR__ . '/../app/config/config.neon');
@@ -58,7 +60,7 @@ final class GettersTest extends Tester\TestCase
 		$presenterFactory = $container->getByType('Nette\\Application\\IPresenterFactory');
 
 		$presenter = $presenterFactory->createPresenter('Getters');
-		$presenter->autoCanonicalize = FALSE;
+		$presenter->autoCanonicalize = false;
 		$request = new Nette\Application\Request('Getters', 'GET', ['action' => 'one']);
 		$response = $presenter->run($request);
 
@@ -132,9 +134,10 @@ final class GettersTest extends Tester\TestCase
 	/**
 	 * @return void
 	 */
-	public function testTwo(): void {
+	public function testTwo(): void
+	{
 		$configurator = new Nette\Configurator();
-		$configurator->setDebugMode(TRUE);
+		$configurator->setDebugMode(true);
 		$configurator->setTempDirectory(TEMP_DIR);
 		$configurator->addConfig(__DIR__ . '/../app/config/config.neon');
 		$configurator->addConfig(__DIR__ . '/../app/config/gettersTestTwo.neon');
@@ -143,14 +146,14 @@ final class GettersTest extends Tester\TestCase
 		$presenterFactory = $container->getByType('Nette\\Application\\IPresenterFactory');
 
 		$presenter = $presenterFactory->createPresenter('Getters');
-		$presenter->autoCanonicalize = FALSE;
+		$presenter->autoCanonicalize = false;
 		$request = new Nette\Application\Request('Getters', 'GET', ['action' => 'one']);
 		$response = $presenter->run($request);
 
 		Tester\Assert::true($response instanceof Nette\Application\Responses\TextResponse);
 		Tester\Assert::true($response->getSource() instanceof Nette\Application\UI\ITemplate);
 
-		Tester\Assert::same(NULL, $presenter->webLoader->getExpiration());
+		Tester\Assert::same(null, $presenter->webLoader->getExpiration());
 		Tester\Assert::true($presenter->webLoader->getDebugMode());
 		Tester\Assert::false($presenter->webLoader->getProductionMode());
 		Tester\Assert::same(AlesWita\WebLoader\Factory::CACHE_DEFAULT_NAMESPACE, $presenter->webLoader->getCacheNamespace());

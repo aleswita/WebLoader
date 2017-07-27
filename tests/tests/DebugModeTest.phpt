@@ -27,7 +27,8 @@ final class DebugModeTest extends Tester\TestCase
 	/**
 	 * @return void
 	 */
-	public function setUp(): void {
+	public function setUp(): void
+	{
 		parent::setUp();
 
 		if (is_dir(__DIR__ . '/css')) {
@@ -48,9 +49,10 @@ final class DebugModeTest extends Tester\TestCase
 	/**
 	 * @return void
 	 */
-	public function testOne(): void {
+	public function testOne(): void
+	{
 		$configurator = new Nette\Configurator();
-		$configurator->setDebugMode(TRUE);
+		$configurator->setDebugMode(true);
 		$configurator->setTempDirectory(TEMP_DIR);
 		$configurator->addConfig(__DIR__ . '/../app/config/config.neon');
 		$configurator->addConfig(__DIR__ . '/../app/config/debugModeTestOne.neon');
@@ -59,7 +61,7 @@ final class DebugModeTest extends Tester\TestCase
 		$presenterFactory = $container->getByType('Nette\\Application\\IPresenterFactory');
 
 		$presenter = $presenterFactory->createPresenter('DebugMode');
-		$presenter->autoCanonicalize = FALSE;
+		$presenter->autoCanonicalize = false;
 		$request = new Nette\Application\Request('DebugMode', 'GET', ['action' => 'one']);
 		$response = $presenter->run($request);
 

@@ -27,7 +27,8 @@ final class ExceptionsTest extends Tester\TestCase
 	/**
 	 * @return void
 	 */
-	public function setUp(): void {
+	public function setUp(): void
+	{
 		parent::setUp();
 
 		if (is_dir(__DIR__ . '/css')) {
@@ -49,7 +50,8 @@ final class ExceptionsTest extends Tester\TestCase
 	 * @throws AlesWita\WebLoader\WebLoaderException Missing parameter "originalFile" in file configuration!
 	 * @return void
 	 */
-	public function testOne(): void {
+	public function testOne(): void
+	{
 		$configurator = new Nette\Configurator();
 		$configurator->setTempDirectory(TEMP_DIR);
 		$configurator->addConfig(__DIR__ . '/../app/config/config.neon');
@@ -63,7 +65,8 @@ final class ExceptionsTest extends Tester\TestCase
 	 * @throws AlesWita\WebLoader\WebLoaderException Missing parameter "tag" in file configuration!
 	 * @return void
 	 */
-	public function testTwo(): void {
+	public function testTwo(): void
+	{
 		$configurator = new Nette\Configurator();
 		$configurator->setTempDirectory(TEMP_DIR);
 		$configurator->addConfig(__DIR__ . '/../app/config/config.neon');
@@ -77,7 +80,8 @@ final class ExceptionsTest extends Tester\TestCase
 	 * @throws AlesWita\WebLoader\WebLoaderException Parameter "namespace" must be array in file configuration!
 	 * @return void
 	 */
-	public function testThree(): void {
+	public function testThree(): void
+	{
 		$configurator = new Nette\Configurator();
 		$configurator->setTempDirectory(TEMP_DIR);
 		$configurator->addConfig(__DIR__ . '/../app/config/config.neon');
@@ -91,7 +95,8 @@ final class ExceptionsTest extends Tester\TestCase
 	 * @throws AlesWita\WebLoader\WebLoaderException
 	 * @return void
 	 */
-	public function testFour(): void {
+	public function testFour(): void
+	{
 		$configurator = new Nette\Configurator();
 		$configurator->setTempDirectory(TEMP_DIR);
 		$configurator->addConfig(__DIR__ . '/../app/config/config.neon');
@@ -105,7 +110,8 @@ final class ExceptionsTest extends Tester\TestCase
 	 * @throws AlesWita\WebLoader\WebLoaderException Unknown file tag in configuration! Allowed tags: css, js, other
 	 * @return void
 	 */
-	public function testFive(): void {
+	public function testFive(): void
+	{
 		$configurator = new Nette\Configurator();
 		$configurator->setTempDirectory(TEMP_DIR);
 		$configurator->addConfig(__DIR__ . '/../app/config/config.neon');
@@ -119,7 +125,8 @@ final class ExceptionsTest extends Tester\TestCase
 	 * @throws AlesWita\WebLoader\WebLoaderException Missing parameter "folder" in file configuration! For tag "other" this tag is required.
 	 * @return void
 	 */
-	public function testSix(): void {
+	public function testSix(): void
+	{
 		$configurator = new Nette\Configurator();
 		$configurator->setTempDirectory(TEMP_DIR);
 		$configurator->addConfig(__DIR__ . '/../app/config/config.neon');
@@ -133,7 +140,8 @@ final class ExceptionsTest extends Tester\TestCase
 	 * @throws AlesWita\WebLoader\WebLoaderException Missing parameter "originalFolder" in folder configuration!
 	 * @return void
 	 */
-	public function testSeven(): void {
+	public function testSeven(): void
+	{
 		$configurator = new Nette\Configurator();
 		$configurator->setTempDirectory(TEMP_DIR);
 		$configurator->addConfig(__DIR__ . '/../app/config/config.neon');
@@ -147,7 +155,8 @@ final class ExceptionsTest extends Tester\TestCase
 	 * @throws AlesWita\WebLoader\WebLoaderException Missing parameter "tag" in folder configuration!
 	 * @return void
 	 */
-	public function testEight(): void {
+	public function testEight(): void
+	{
 		$configurator = new Nette\Configurator();
 		$configurator->setTempDirectory(TEMP_DIR);
 		$configurator->addConfig(__DIR__ . '/../app/config/config.neon');
@@ -161,7 +170,8 @@ final class ExceptionsTest extends Tester\TestCase
 	 * @throws AlesWita\WebLoader\WebLoaderException Parameter "namespace" must be array in folder configuration!
 	 * @return void
 	 */
-	public function testNine(): void {
+	public function testNine(): void
+	{
 		$configurator = new Nette\Configurator();
 		$configurator->setTempDirectory(TEMP_DIR);
 		$configurator->addConfig(__DIR__ . '/../app/config/config.neon');
@@ -175,7 +185,8 @@ final class ExceptionsTest extends Tester\TestCase
 	 * @throws AlesWita\WebLoader\WebLoaderException Folder "css" already have file with name "css.css"!
 	 * @return void
 	 */
-	public function testTen(): void {
+	public function testTen(): void
+	{
 		$configurator = new Nette\Configurator();
 		$configurator->setTempDirectory(TEMP_DIR);
 		$configurator->addConfig(__DIR__ . '/../app/config/config.neon');
@@ -189,7 +200,8 @@ final class ExceptionsTest extends Tester\TestCase
 	 * @throws AlesWita\WebLoader\WebLoaderException Missing parameter "tag" in HTML tag configuration!
 	 * @return void
 	 */
-	public function testEleven(): void {
+	public function testEleven(): void
+	{
 		$configurator = new Nette\Configurator();
 		$configurator->setTempDirectory(TEMP_DIR);
 		$configurator->addConfig(__DIR__ . '/../app/config/config.neon');
@@ -203,7 +215,8 @@ final class ExceptionsTest extends Tester\TestCase
 	 * @throws AlesWita\WebLoader\WebLoaderException Parameter "namespace" must be array in HTML tags configuration!
 	 * @return void
 	 */
-	public function testTwelve(): void {
+	public function testTwelve(): void
+	{
 		$configurator = new Nette\Configurator();
 		$configurator->setTempDirectory(TEMP_DIR);
 		$configurator->addConfig(__DIR__ . '/../app/config/config.neon');

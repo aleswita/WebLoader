@@ -91,7 +91,7 @@ class Extension extends Nette\DI\CompilerExtension
 						'namespace' => $folderSettings['namespace'],
 						//'baseName' => basename($file->getLinkTarget()),// failed on Linux
 						'baseName' => basename($file->getRealPath()),
-						'folder' => (isset($folderSettings['folder']) ? $folderSettings['folder'] : null),
+						'folder' => $folderSettings['folder'] ?? null,
 					];
 				}
 			}
@@ -131,13 +131,13 @@ class Extension extends Nette\DI\CompilerExtension
 
 				switch ($fileSettings['tag']) {
 					case Factory::TAG_FILE_CSS:
-						$fileSettings['folder'] = (isset($fileSettings['folder']) ? $fileSettings['folder'] : Factory::DEFAULT_FOLDER_CSS);
+						$fileSettings['folder'] = $fileSettings['folder'] ?? Factory::DEFAULT_FOLDER_CSS;
 						$fileSettings['file'] = $container->parameters['wwwDir'] . '/' . $fileSettings['folder'] . '/' . $fileSettings['baseName'];
 						$webLoader->addSetup('$service->addCssFile(?)', [$fileSettings]);
 						break;
 
 					case Factory::TAG_FILE_JS:
-						$fileSettings['folder'] = (isset($fileSettings['folder']) ? $fileSettings['folder'] : Factory::DEFAULT_FOLDER_JS);
+						$fileSettings['folder'] = $fileSettings['folder'] ?? Factory::DEFAULT_FOLDER_JS;
 						$fileSettings['file'] = $container->parameters['wwwDir'] . '/' . $fileSettings['folder'] . '/' . $fileSettings['baseName'];
 						$webLoader->addSetup('$service->addJsFile(?)', [$fileSettings]);
 						break;
