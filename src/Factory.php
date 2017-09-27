@@ -28,7 +28,6 @@ class Factory
 
 	public const TAG_HTML = 'html';
 
-
 	/** back compatibility */
 	public const FILE_TAG_CSS = self::TAG_FILE_CSS;
 
@@ -36,21 +35,17 @@ class Factory
 
 	public const FILE_TAG_OTHER = self::TAG_FILE_OTHER;
 
-
 	/** folder constants */
 	public const DEFAULT_FOLDER_CSS = 'css';
 
 	public const DEFAULT_FOLDER_JS = 'js';
-
 
 	/** cache constants */
 	public const CACHE_DEFAULT_NAMESPACE = 'Web.Loader';
 
 	public const CACHE_DEFAULT_TAG = 'Web.Loader';
 
-
 	public const DEFAULT_NAMESPACE = 'default';
-
 
 	/** @var string */
 	private $wwwDir;
