@@ -116,7 +116,6 @@ final class BaseLinksTest extends Tester\TestCase
 
 		Tester\Assert::count(1, $data);
 		Tester\Assert::contains('http:/js/js.js?v=', (string) $data[0]['src']);
-		Tester\Assert::same('text/javascript', (string) $data[0]['type']);
 
 
 		$cssFiles = $presenter->webLoader->getCssFiles();
