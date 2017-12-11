@@ -47,8 +47,7 @@ class Js extends Loader
 
 			foreach ($this->files as $file) {
 				$html = Nette\Utils\Html::el('script')
-					->setSrc($file . '?v=' . md5((string) $dateTime->getTimestamp()))
-					->setType('text/javascript');
+					->setSrc($file . '?v=' . md5((string) $dateTime->getTimestamp()));
 
 				$main->insert(null, $html);
 			}
