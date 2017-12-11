@@ -20,6 +20,7 @@ use Nette;
  * @property-read string $uniqueId
  * @property-read Nette\Caching\Cache $cache
  * @property-read string $cacheNamespace
+ * @property-read string $cacheTag
  * @property-read Nette\Http\Request $httpRequest
  * @property-read string $expiration
  * @property-read array $cssFiles
