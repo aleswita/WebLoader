@@ -15,8 +15,8 @@ use Nette;
 
 /**
  * @property-read string $wwwDir
- * @property-read string $debugMode
- * @property-read string $productionMode
+ * @property-read bool $debugMode
+ * @property-read bool $productionMode
  * @property-read string $uniqueId
  * @property-read Nette\Caching\Cache $cache
  * @property-read string $cacheNamespace
