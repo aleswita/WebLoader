@@ -20,7 +20,7 @@ use Nette;
  */
 class Css extends Loader
 {
-	use Nette\SmartObject;
+	//use Nette\SmartObject;// fail tests - E_USER_DEPRECATED: AlesWita\WebLoader\Loader\Css::getReflection() is deprecated in /home/travis/build/aleswita/WebLoader/vendor/nette/application/src/Application/UI/Component.php:129
 
 	/**
 	 * @param array
