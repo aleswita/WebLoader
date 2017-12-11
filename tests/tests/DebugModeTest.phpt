@@ -69,9 +69,9 @@ final class DebugModeTest extends Tester\TestCase
 		Tester\Assert::true($response->getSource() instanceof Nette\Application\UI\ITemplate);
 
 		$source = (string) $response->getSource();
-		$cache = $presenter->webLoader->getCache();
+		$cache = $presenter->webLoader->cache;
 
-		Tester\Assert::same($presenter->webLoader->getUniqueId(), $cache->load('uniqueId'));
+		Tester\Assert::same($presenter->webLoader->uniqueId, $cache->load('uniqueId'));
 	}
 }
 

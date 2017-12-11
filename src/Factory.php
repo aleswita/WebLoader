@@ -14,11 +14,26 @@ use Nette;
 
 
 /**
+ * @property-read string $wwwDir
+ * @property-read string $debugMode
+ * @property-read string $productionMode
+ * @property-read string $uniqueId
+ * @property-read Nette\Caching\Cache $cache
+ * @property-read string $cacheNamespace
+ * @property-read Nette\Http\Request $httpRequest
+ * @property-read string $expiration
+ * @property-read array $cssFiles
+ * @property-read array $jsFiles
+ * @property-read array $otherFiles
+ * @property-read array $htmlTags
+ *
  * @author Ales Wita
  * @license MIT
  */
 class Factory
 {
+	use Nette\SmartObject;
+
 	/** tags contants */
 	public const TAG_FILE_CSS = 'css';
 
@@ -48,6 +63,9 @@ class Factory
 	public const DEFAULT_NAMESPACE = 'default';
 
 	/** @var string */
+	private $expiration;
+
+	/** @var string */
 	private $wwwDir;
 
 	/** @var bool */
@@ -73,9 +91,6 @@ class Factory
 
 	/** @var Nette\Http\Request */
 	private $httpRequest;
-
-	/** @var string */
-	private $expiration;
 
 	/** @var array */
 	private $cssFiles = [];
@@ -234,15 +249,6 @@ class Factory
 
 
 	/**
-	 * @return string|NULL
-	 */
-	public function getExpiration(): ?string
-	{
-		return $this->expiration;
-	}
-
-
-	/**
 	 * @return string
 	 */
 	public function getWwwDir(): string
@@ -314,6 +320,15 @@ class Factory
 	public function getHttpRequest(): Nette\Http\IRequest
 	{
 		return $this->httpRequest;
+	}
+
+
+	/**
+	 * @return string|null
+	 */
+	public function getExpiration(): ?string
+	{
+		return $this->expiration;
 	}
 
 

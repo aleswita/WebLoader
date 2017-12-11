@@ -20,6 +20,8 @@ use Nette;
  */
 class Js extends Loader
 {
+	use Nette\SmartObject;
+
 	/**
 	 * @param array
 	 * @return AlesWita\WebLoader\Loader\ILoader

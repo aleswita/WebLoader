@@ -14,7 +14,7 @@ namespace AlesWita\WebLoader;
  * @author Ales Wita
  * @license MIT
  */
-class WebLoaderException extends \Exception
+class Exception extends \Exception
 {
 }
 
@@ -23,6 +23,6 @@ class WebLoaderException extends \Exception
  * @author Ales Wita
  * @license MIT
  */
-class TestException extends \Exception
+class WebLoaderException extends Exception
 {
 }

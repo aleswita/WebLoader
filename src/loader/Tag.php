@@ -20,6 +20,8 @@ use Nette;
  */
 class Tag extends Loader
 {
+	use Nette\SmartObject;
+
 	/**
 	 * @param array
 	 * @return AlesWita\WebLoader\Loader\ILoader
